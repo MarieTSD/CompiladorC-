@@ -1,0 +1,10 @@
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
