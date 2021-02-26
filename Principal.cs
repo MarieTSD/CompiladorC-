@@ -14,11 +14,13 @@ namespace ProyectoCompiladores_IDE
     public partial class Principal : Form
     {
         string rutaArchivo;
+        string[] Reservadas = new string[] { "else", "if" };
         public Principal()
         {
             InitializeComponent();
             this.CenterToScreen(); // Centra el programa en el centro de la pantalla
-            //this.Text = "Principal"; //Nombre en la ventana
+                                   //this.Text = "Principal"; //Nombre en la ventana
+            
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -146,6 +148,29 @@ namespace ProyectoCompiladores_IDE
                 //MessageBox.Show("Archivo cerrado");
                 this.Dispose();
             }
+            else if (e.Control && e.KeyCode == Keys.A)
+            {
+                cuadro.SelectAll();
+            }
+            else if(e.Control && e.KeyCode == Keys.U)
+            {
+                if (cuadro.CanUndo == true)
+                {
+                    cuadro.Undo();
+                    cuadro.ClearUndo();
+                }
+            }
+            else if(e.Control && e.KeyCode == Keys.D)
+            {
+                if (cuadro.SelectedText != "")
+                {
+                    cuadro.Cut();
+                }
+                else
+                {
+                    MessageBox.Show("Todavia no has seleccionado nada");
+                }
+            }
         }
 
         private void cerrarCtrlXToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,6 +180,71 @@ namespace ProyectoCompiladores_IDE
             this.Dispose();
         }
 
-        
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripDropDownButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cuadro.SelectionLength > 0)
+            {
+                cuadro.Copy();
+            }
+            else
+            {
+                MessageBox.Show("Selecciona lo que deseas copiar");
+            }
+                
+        }
+
+        private void unToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cuadro.CanUndo == true)
+            {
+                cuadro.Undo();
+                cuadro.ClearUndo();
+            }
+        }
+
+        private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.GetDataObject().GetDataPresent(DataFormats.Text) == true)
+            {
+               
+                if (cuadro.SelectionLength > 0)
+                {
+                    
+                    if (MessageBox.Show("¿Quieres sobreescibir?", "Cortar", MessageBoxButtons.YesNo) == DialogResult.No)
+                        
+                        cuadro.SelectionStart = cuadro.SelectionStart + cuadro.SelectionLength;
+                }
+                cuadro.Paste();
+            }
+        }
+
+        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cuadro.SelectedText != "")
+            {
+                cuadro.Cut();
+            }
+            else
+            {
+                MessageBox.Show("Todavia no has seleccionado nada");
+            }
+                
+                
+        }
+
+        private void seleccionarTodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cuadro.SelectAll();
+        }
     }
 }
