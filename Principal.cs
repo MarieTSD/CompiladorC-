@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ProyectoCompiladores_IDE
 {
     public partial class Principal : Form
     {
         string rutaArchivo;
+
+        Regex reservadas = new Regex(@"int|if|else|return|using|namespace|#.*");
+        Regex otro_rx = new Regex(@"<.*>|\"".*\""");
         public Principal()
         {
             InitializeComponent();
@@ -43,6 +47,7 @@ namespace ProyectoCompiladores_IDE
                 {
                     cuadro.Text = lectura.ReadToEnd();
                 }
+                MarcarTexto();
             }
             MessageBox.Show("Archivo abierto con éxito");
         }
@@ -155,6 +160,36 @@ namespace ProyectoCompiladores_IDE
             this.Dispose();
         }
 
-        
+        private void Cambio_Texto(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space 
+                || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                MarcarTexto();
+            }
+        }
+
+        private void MarcarTexto()
+        {
+            int posActual = cuadro.SelectionStart;
+            cuadro.SelectAll();
+            cuadro.SelectionColor = Color.Black;
+            MatchCollection matchesReservadas = reservadas.Matches(cuadro.Text);
+            MatchCollection matchesOtro = otro_rx.Matches(cuadro.Text);
+
+            foreach (Match temp in matchesReservadas)
+            {
+                cuadro.Select(temp.Index, temp.Length);
+                cuadro.SelectionColor = Color.Blue;
+            }
+            foreach (Match temp in matchesOtro)
+            {
+                cuadro.Select(temp.Index, temp.Length);
+                cuadro.SelectionColor = Color.Red;
+            }
+
+            cuadro.SelectionStart = posActual;
+            cuadro.SelectionLength = 0;
+        }
     }
 }
