@@ -52,6 +52,12 @@ namespace ProyectoCompiladores_IDE
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarCtrlXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.seleccionarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,12 +66,6 @@ namespace ProyectoCompiladores_IDE
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.guardar = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.seleccionarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Pestañas.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintactico.SuspendLayout();
@@ -108,8 +108,8 @@ namespace ProyectoCompiladores_IDE
             // 
             // cuadro
             // 
-            this.cuadro.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cuadro.Location = new System.Drawing.Point(9, 50);
+            this.cuadro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cuadro.Location = new System.Drawing.Point(11, 62);
             this.cuadro.Margin = new System.Windows.Forms.Padding(2);
             this.cuadro.Name = "cuadro";
             this.cuadro.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
@@ -312,14 +312,55 @@ namespace ProyectoCompiladores_IDE
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripButton1
+            // toolStripDropDownButton2
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(52, 24);
-            this.toolStripButton1.Text = "Editar";
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copiarToolStripMenuItem,
+            this.pegarToolStripMenuItem,
+            this.cortarToolStripMenuItem,
+            this.unToolStripMenuItem,
+            this.seleccionarTodoToolStripMenuItem});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(62, 24);
+            this.toolStripDropDownButton2.Text = "Editar";
+            // 
+            // copiarToolStripMenuItem
+            // 
+            this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
+            this.copiarToolStripMenuItem.Text = "Copiar Ctrl + C";
+            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
+            // 
+            // pegarToolStripMenuItem
+            // 
+            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
+            this.pegarToolStripMenuItem.Text = "Pegar Ctrl + V";
+            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
+            // 
+            // cortarToolStripMenuItem
+            // 
+            this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
+            this.cortarToolStripMenuItem.Text = "Cortar Ctrl + D";
+            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
+            // 
+            // unToolStripMenuItem
+            // 
+            this.unToolStripMenuItem.Name = "unToolStripMenuItem";
+            this.unToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
+            this.unToolStripMenuItem.Text = "Deshacer Ctrl + U";
+            this.unToolStripMenuItem.Click += new System.EventHandler(this.unToolStripMenuItem_Click);
+            // 
+            // seleccionarTodoToolStripMenuItem
+            // 
+            this.seleccionarTodoToolStripMenuItem.Name = "seleccionarTodoToolStripMenuItem";
+            this.seleccionarTodoToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
+            this.seleccionarTodoToolStripMenuItem.Text = "Seleccionar todo  Ctrl + A";
+            this.seleccionarTodoToolStripMenuItem.Click += new System.EventHandler(this.seleccionarTodoToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -371,57 +412,6 @@ namespace ProyectoCompiladores_IDE
             // guardar
             // 
             this.guardar.Filter = "Archivos de texto | *.txt";
-            // 
-            // toolStripDropDownButton2
-            // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copiarToolStripMenuItem,
-            this.pegarToolStripMenuItem,
-            this.cortarToolStripMenuItem,
-            this.unToolStripMenuItem,
-            this.seleccionarTodoToolStripMenuItem});
-            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(50, 22);
-            this.toolStripDropDownButton2.Text = "Editar";
-            this.toolStripDropDownButton2.Click += new System.EventHandler(this.toolStripDropDownButton2_Click);
-            // 
-            // copiarToolStripMenuItem
-            // 
-            this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.copiarToolStripMenuItem.Text = "Copiar Ctrl + C";
-            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
-            // 
-            // pegarToolStripMenuItem
-            // 
-            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pegarToolStripMenuItem.Text = "Pegar Ctrl + V";
-            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
-            // 
-            // cortarToolStripMenuItem
-            // 
-            this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.cortarToolStripMenuItem.Text = "Cortar Ctrl + D";
-            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
-            // 
-            // unToolStripMenuItem
-            // 
-            this.unToolStripMenuItem.Name = "unToolStripMenuItem";
-            this.unToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.unToolStripMenuItem.Text = "Deshacer Ctrl + U";
-            this.unToolStripMenuItem.Click += new System.EventHandler(this.unToolStripMenuItem_Click);
-            // 
-            // seleccionarTodoToolStripMenuItem
-            // 
-            this.seleccionarTodoToolStripMenuItem.Name = "seleccionarTodoToolStripMenuItem";
-            this.seleccionarTodoToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.seleccionarTodoToolStripMenuItem.Text = "Seleccionar todo  Ctrl + A";
-            this.seleccionarTodoToolStripMenuItem.Click += new System.EventHandler(this.seleccionarTodoToolStripMenuItem_Click);
             // 
             // Principal
             // 

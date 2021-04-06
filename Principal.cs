@@ -215,15 +215,6 @@ namespace ProyectoCompiladores_IDE
             cuadro.SelectionStart = posActual;
             cuadro.SelectionLength = 0;
         }
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripDropDownButton2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
