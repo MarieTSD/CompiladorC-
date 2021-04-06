@@ -1,0 +1,44 @@
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\bin\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\Luigi\source\repos\ProyectoCompiladores_IDE\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\joser\source\repos\PrimeraFaseProyecto\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\joser\source\repos\PrimeraFaseProyecto\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\source\repos\PrimeraFaseProyecto\bin\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\source\repos\PrimeraFaseProyecto\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\bin\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\marie\Downloads\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\marie\OneDrive - Universidad Autónoma de Aguascalientes\UAA\semestre 8\COMPILADORES I\Proyecto\VS2019\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache
+C:\Users\marie\OneDrive - Universidad Autónoma de Aguascalientes\UAA\semestre 8\COMPILADORES I\Proyecto\VS2019\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\marie\OneDrive - Universidad Autónoma de Aguascalientes\UAA\semestre 8\COMPILADORES I\Proyecto\VS2019\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\marie\OneDrive - Universidad Autónoma de Aguascalientes\UAA\semestre 8\COMPILADORES I\Proyecto\VS2019\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\marie\OneDrive - Universidad Autónoma de Aguascalientes\UAA\semestre 8\COMPILADORES I\Proyecto\VS2019\CompiladorCSharp-Editar\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\source\repos\CompiladorCSharp-Parte1\bin\Debug\ProyectoCompiladores_IDE.pdb

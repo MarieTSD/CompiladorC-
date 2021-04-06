@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace ProyectoCompiladores_IDE
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main(string[] args)
+        {
+            //lexico analizador = new lexico();
+            if (args.Length == 0)
+            {
+                
+               Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Principal());
+                Console.WriteLine("Holaa: \t");
+                
+            }
+            else
+            {
+                string[] lineas = System.IO.File.ReadAllLines(@"C:\Users\joser\source\repos\CompiladorCSharp-Parte1\" + args[0]);
+            //Console.WriteLine("Coincidencias primer archivo: \t");
+            Console.WriteLine("Coincidencias primer archivo: \t");
+            lexico analizador = new lexico();
+            int lineaP = 1;
+            foreach (string linea in lineas)
+            {
+                analizador.Analizado_Lexico(linea, lineaP);
+                lineaP++;
+            }
+            analizador.obtenerTokens2();
+            Console.WriteLine(analizador.tokensResultados());
+            //Console.WriteLine("Coincidencias primer archivo: \t"+ analizador.tokensResultados());
+            //LexicoTextBox.Text = analizador.tokensResultados();
+
+            }
+        }
+    }
+}
