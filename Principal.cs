@@ -26,6 +26,8 @@ namespace ProyectoCompiladores_IDE
             
         }
 
+
+        //-------------------------Menu Archivo
         private void Button1_Click(object sender, EventArgs e)
         {
             // Codigo del evento click en boton "mensaje"
@@ -49,8 +51,8 @@ namespace ProyectoCompiladores_IDE
                     cuadro.Text = lectura.ReadToEnd();
                 }
                 MarcarTexto();
+                MessageBox.Show("Archivo abierto con éxito");
             }
-            MessageBox.Show("Archivo abierto con éxito");
         }
 
         private void ClickBoton_ArchivoGuardar(object sender, EventArgs e)
@@ -108,6 +110,7 @@ namespace ProyectoCompiladores_IDE
                     {
                         cuadro.Text = lectura.ReadToEnd();
                     }
+                    MarcarTexto();
                     MessageBox.Show("Archivo abierto con éxito");
                 }
             }
@@ -183,39 +186,11 @@ namespace ProyectoCompiladores_IDE
             //MessageBox.Show("Archivo cerrado");
             this.Dispose();
         }
+        //--FIN-------------------------Menu Archivo
 
-        private void Cambio_Texto(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space 
-                || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
-            {
-                MarcarTexto();
-            }
-        }
 
-        private void MarcarTexto()
-        {
-            int posActual = cuadro.SelectionStart;
-            cuadro.SelectAll();
-            cuadro.SelectionColor = Color.Black;
-            MatchCollection matchesReservadas = reservadas.Matches(cuadro.Text);
-            MatchCollection matchesOtro = otro_rx.Matches(cuadro.Text);
 
-            foreach (Match temp in matchesReservadas)
-            {
-                cuadro.Select(temp.Index, temp.Length);
-                cuadro.SelectionColor = Color.Blue;
-            }
-            foreach (Match temp in matchesOtro)
-            {
-                cuadro.Select(temp.Index, temp.Length);
-                cuadro.SelectionColor = Color.Red;
-            }
-
-            cuadro.SelectionStart = posActual;
-            cuadro.SelectionLength = 0;
-        }
-
+        //--------------------------Menu Editar
         private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cuadro.SelectionLength > 0)
@@ -272,5 +247,47 @@ namespace ProyectoCompiladores_IDE
         {
             cuadro.SelectAll();
         }
+        //--FIN----------------------------Menu Editar
+
+
+
+
+        //--------------------------Propiedades de variables reservadas
+        private void Cambio_Texto(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space
+                || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                MarcarTexto();
+            }
+        }
+
+        private void MarcarTexto()
+        {
+            int posActual = cuadro.SelectionStart;
+            cuadro.SelectAll();
+            cuadro.SelectionColor = Color.Black;
+            MatchCollection matchesReservadas = reservadas.Matches(cuadro.Text);
+            MatchCollection matchesOtro = otro_rx.Matches(cuadro.Text);
+
+            foreach (Match temp in matchesReservadas)
+            {
+                cuadro.Select(temp.Index, temp.Length);
+                cuadro.SelectionColor = Color.Blue;
+            }
+            foreach (Match temp in matchesOtro)
+            {
+                cuadro.Select(temp.Index, temp.Length);
+                cuadro.SelectionColor = Color.Red;
+            }
+
+            cuadro.SelectionStart = posActual;
+            cuadro.SelectionLength = 0;
+        }
+        //--FIN----------------------Propiedades de variables reservadas
+
+
+
+
     }
 }

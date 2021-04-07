@@ -65,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +79,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\140-1408496_png-file-icono-de-guardar-png-clipart.png" />
+    <Content Include="Resources\2129819.png" />
+    <Content Include="Resources\32565.png" />
+    <Content Include="Resources\565339.png" />
+    <Content Include="Resources\62124.png" />
+    <Content Include="Resources\62319.png" />
+    <Content Include="Resources\84340.png" />
+    <Content Include="Resources\cerrar-borrar-boton-eliminar_318-9073.jpg" />
+    <Content Include="Resources\kisspng-computer-icons-icon-design-undo-download-curve-5abbc5b5d0c494.4762120115222552858551.jpg" />
+    <Content Include="Resources\png-transparent-cut-copy-and-paste-computer-icons-cutting-copying-tool-scissors-cutting-angle-scissors-business.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
