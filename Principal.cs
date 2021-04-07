@@ -16,7 +16,7 @@ namespace ProyectoCompiladores_IDE
     {
         string rutaArchivo;
 
-        Regex reservadas = new Regex(@"int|if|else|return|using|namespace|#.*");
+        Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|else|fi|do|until|while|read|write|#.*");
         Regex otro_rx = new Regex(@"<.*>|\"".*\""");
         public Principal()
         {
@@ -133,7 +133,7 @@ namespace ProyectoCompiladores_IDE
                         {
                             escritura.Write(cuadro.Text);
                         }
-                        MessageBox.Show("Archivo Guarado");
+                        MessageBox.Show("Archivo Guardado");
                     }
                 }
             }
@@ -283,6 +283,47 @@ namespace ProyectoCompiladores_IDE
 
             cuadro.SelectionStart = posActual;
             cuadro.SelectionLength = 0;
+        }
+
+        private void Click_compilar(object sender, EventArgs e)
+        {
+            if (rutaArchivo != null)
+            {
+                using (StreamWriter escritura = new StreamWriter(rutaArchivo))
+                {
+                    escritura.Write(cuadro.Text);
+                }
+            }
+            else
+            {
+                if (guardar.ShowDialog() == DialogResult.OK)
+                {
+                    rutaArchivo = guardar.FileName;
+                    using (StreamWriter escritura = new StreamWriter(guardar.FileName))
+                    {
+                        escritura.Write(cuadro.Text);
+                    }
+                }
+            }
+            string[] lineas = System.IO.File.ReadAllLines(rutaArchivo);
+            //string cadenas ="+-{;}";
+            //Console.WriteLine("Coincidencias primer archivo: \t");
+            lexico analizador = new lexico();
+            int lineaP = 1;
+            foreach (string linea in lineas)
+            {
+
+                analizador.Analizado_Lexico(linea, lineaP);
+                lineaP++;
+            }
+            analizador.obtenerTokens2();
+            LexicoTextBox.Text = analizador.tokensResultados();
+            /* lexico analizador = new lexico();
+             analizador.Analizado_Lexico(cadenas);
+             Console.WriteLine("LLgue 1: \t");
+             analizador.obtenerTokens2();
+             LexicoTextBox.Text = analizador.tokensResultados();*/
+
         }
         //--FIN----------------------Propiedades de variables reservadas
 

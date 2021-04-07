@@ -12,11 +12,32 @@ namespace ProyectoCompiladores_IDE
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Principal());
+            if (args.Length == 0)
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Principal());
+                Console.WriteLine("Holaa: \t");
+            }
+            else
+            {
+                string[] lineas = System.IO.File.ReadAllLines(@".\" + args[0]);
+                //Console.WriteLine("Coincidencias primer archivo: \t");
+                Console.WriteLine("Coincidencias primer archivo: \t");
+                lexico analizador = new lexico();
+                int lineaP = 1;
+                foreach (string linea in lineas)
+                {
+                    analizador.Analizado_Lexico(linea, lineaP);
+                    lineaP++;
+                }
+                analizador.obtenerTokens2();
+                Console.WriteLine(analizador.tokensResultados());
+                //Console.WriteLine("Coincidencias primer archivo: \t"+ analizador.tokensResultados());
+                //LexicoTextBox.Text = analizador.tokensResultados();
+            }
         }
     }
 }
