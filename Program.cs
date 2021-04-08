@@ -19,13 +19,12 @@ namespace ProyectoCompiladores_IDE
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Principal());
-                Console.WriteLine("Holaa: \t");
+
+                //Console.WriteLine("No has agregado el archivo de texto");
             }
             else
             {
                 string[] lineas = System.IO.File.ReadAllLines(@".\" + args[0]);
-                //Console.WriteLine("Coincidencias primer archivo: \t");
-                Console.WriteLine("Coincidencias primer archivo: \t");
                 lexico analizador = new lexico();
                 int lineaP = 1;
                 foreach (string linea in lineas)
@@ -35,9 +34,8 @@ namespace ProyectoCompiladores_IDE
                 }
                 analizador.obtenerTokens2();
                 Console.WriteLine(analizador.tokensResultados());
-                //Console.WriteLine("Coincidencias primer archivo: \t"+ analizador.tokensResultados());
-                //LexicoTextBox.Text = analizador.tokensResultados();
             }
+
         }
     }
 }
