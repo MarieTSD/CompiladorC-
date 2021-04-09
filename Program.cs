@@ -33,7 +33,10 @@ namespace ProyectoCompiladores_IDE
                     lineaP++;
                 }
                 analizador.obtenerTokens2();
+                analizador.obtenerTokens2E();
                 Console.WriteLine(analizador.tokensResultados());
+                Console.WriteLine("Tokens Errores \t");
+                Console.WriteLine(analizador.tokensResultadosE());
             }
 
         }

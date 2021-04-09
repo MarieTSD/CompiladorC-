@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace ProyectoCompiladores_IDE
 {
@@ -18,6 +19,7 @@ namespace ProyectoCompiladores_IDE
 
         Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|else|fi|do|until|while|read|write|#.*");
         Regex otro_rx = new Regex(@"<.*>|\"".*\""");
+        String tokenResultado;
         public Principal()
         {
             InitializeComponent();
@@ -305,6 +307,7 @@ namespace ProyectoCompiladores_IDE
                     }
                 }
             }
+            
             string[] lineas = System.IO.File.ReadAllLines(rutaArchivo);
             //string cadenas ="+-{;}";
             //Console.WriteLine("Coincidencias primer archivo: \t");
@@ -318,17 +321,35 @@ namespace ProyectoCompiladores_IDE
             }
             analizador.obtenerTokens2();
             LexicoTextBox.Text = analizador.tokensResultados();
-            /* lexico analizador = new lexico();
-             analizador.Analizado_Lexico(cadenas);
-             Console.WriteLine("LLgue 1: \t");
-             analizador.obtenerTokens2();
-             LexicoTextBox.Text = analizador.tokensResultados();*/
+            analizador.obtenerTokens2E();
+            ErroresTextBox.Text = analizador.tokensResultadosE();
+
+            //Programa para ejecutar el comando externo
+            //LexicoTextBox.Text = lanzaProceso(@".\Program.exe", "pruebahoy.txt");
+
 
         }
         //--FIN----------------------Propiedades de variables reservadas
 
-
-
+        private static string lanzaProceso(string Proceso, string Parametros)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo(Proceso, Parametros);
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = false; //No utiliza RunDLL32 para lanzarlo   //Opcional: establecer la carpeta de trabajo en la que se ejecutará el proceso   //startInfo.WorkingDirectory = "C:\\MiCarpeta\\";
+                                               //Redirige las salidas y los errores
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            Process proc = Process.Start(startInfo); //Ejecuta el proceso
+            proc.WaitForExit(); // Espera a que termine el proceso
+            string error = proc.StandardError.ReadToEnd();
+            if (error != null && error != "") //Error
+                throw new Exception("Se ha producido un error al ejecutar el proceso '" + Proceso + "'\n" + "Detalles:\n" + "Error: " + error);
+            else //Éxito
+                //return proc.Container.Components.Cast<proc.StandardOutput.ReadToEnd()>
+                return proc.StandardOutput.ReadToEnd(); //Devuelve el resultado 
+                
+        }
+       
 
     }
 }

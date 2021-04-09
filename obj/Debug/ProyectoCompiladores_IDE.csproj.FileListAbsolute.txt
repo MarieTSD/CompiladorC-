@@ -27,3 +27,4 @@ C:\Users\joser\source\repos\ProyectoFinalCompiladores\obj\Debug\ProyectoCompilad
 C:\Users\joser\source\repos\ProyectoFinalCompiladores\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
 C:\Users\joser\source\repos\ProyectoFinalCompiladores\obj\Debug\ProyectoCompiladores_IDE.exe
 C:\Users\joser\source\repos\ProyectoFinalCompiladores\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\source\repos\ProyectoFinalCompiladores\obj\Debug\ProyectoCompiladores_IDE.csprojAssemblyReference.cache

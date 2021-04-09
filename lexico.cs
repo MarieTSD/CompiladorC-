@@ -9,12 +9,15 @@ namespace ProyectoCompiladores_IDE
     class lexico
     {
         static private List<token> listaTokens;
+        static private List<token> listaTokensErrores;
         private String tokenResultado;
+        private String tokenResultadoE;
         private Boolean bandera;
         private String auxiliar;
         public lexico()
         {
             listaTokens = new List<token>();
+            listaTokensErrores = new List<token>();
             bandera = false;
             auxiliar = "";
         }
@@ -23,13 +26,27 @@ namespace ProyectoCompiladores_IDE
             token nuevoToken = new token(idToken, lexema, indice, linea);
             listaTokens.Add(nuevoToken);
         }
+        public void tokensE(String idToken, String lexema, int linea, int indice)
+        {
+            token nuevoToken = new token(idToken, lexema, indice, linea);
+            listaTokensErrores.Add(nuevoToken);
+        }
         public List<token> obtenerTokens()
         {
             return listaTokens;
         }
+        public List<token> obtenerTokensE()
+        {
+            return listaTokensErrores;
+        }
+
         public String tokensResultados()
         {
             return tokenResultado;
+        }
+        public String tokensResultadosE()
+        {
+            return tokenResultadoE;
         }
         public void obtenerTokens2()
         {
@@ -37,6 +54,14 @@ namespace ProyectoCompiladores_IDE
             {
                 token actual = listaTokens.ElementAt(i);
                 tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
+            }
+        }
+        public void obtenerTokens2E()
+        {
+            for (int i = 0; i < listaTokensErrores.Count; i++)
+            {
+                token actual = listaTokensErrores.ElementAt(i);
+                tokenResultadoE += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
             }
         }
         public void Analizado_Lexico(String Cadena, int linea)
@@ -156,6 +181,15 @@ namespace ProyectoCompiladores_IDE
                         }
                         else if (c == ' ')
                         {
+                            lexema = "";
+                        }else if(c == '.'){
+                            lexema += c;
+                            estado = 30;
+                        }
+                        else
+                        {
+                            lexema += c;
+                            tokensE("Error", lexema, i + 1, indice);
                             lexema = "";
                         }
 
@@ -279,7 +313,7 @@ namespace ProyectoCompiladores_IDE
                         else
                         {
                             lexema += c;
-                            tokens("ERROR", lexema, i + 1, indice);
+                            tokensE("Error", lexema, i + 1, indice);
                             lexema = "";
                             estado = 0;
                         }
@@ -334,6 +368,20 @@ namespace ProyectoCompiladores_IDE
                             estado = 28;
                         }
                         break;
+                    case 30:
+                        if (Char.IsDigit(c))
+                        {
+                            lexema += c;
+                            estado = 30;
+                        }
+                        else
+                        {
+                            tokensE("Error", lexema, i + 1, indice);
+                            lexema = "";
+                            i--;
+                            estado = 0;
+                        }
+                            break;
                 }
 
             }
