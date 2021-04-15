@@ -265,7 +265,7 @@ namespace ProyectoCompiladores_IDE
                     case 20:
                         if (Char.IsLetterOrDigit(c))
                         {
-                            lexema += c;
+                            lexema += c; 
                             estado = 20;
                         }
                         else

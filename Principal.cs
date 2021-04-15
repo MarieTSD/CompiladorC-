@@ -307,7 +307,7 @@ namespace ProyectoCompiladores_IDE
                     }
                 }
             }
-            
+           
             string[] lineas = System.IO.File.ReadAllLines(rutaArchivo);
             //string cadenas ="+-{;}";
             //Console.WriteLine("Coincidencias primer archivo: \t");
@@ -323,9 +323,15 @@ namespace ProyectoCompiladores_IDE
             LexicoTextBox.Text = analizador.tokensResultados();
             analizador.obtenerTokens2E();
             ErroresTextBox.Text = analizador.tokensResultadosE();
-
+            /*
             //Programa para ejecutar el comando externo
-            //LexicoTextBox.Text = lanzaProceso(@".\Program.exe", "pruebahoy.txt");
+            string cadena = lanzaProceso(@".\Program.exe", rutaArchivo);
+            char caracter = '|';
+            string[] resTokens = cadena.Split(caracter);
+            LexicoTextBox.Text = resTokens[0];
+            ErroresTextBox.Text = resTokens[2];
+           */
+
 
 
         }

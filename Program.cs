@@ -16,15 +16,16 @@ namespace ProyectoCompiladores_IDE
         {
             if (args.Length == 0)
             {
+                
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Principal());
-
-                //Console.WriteLine("No has agregado el archivo de texto");
+                
+               // Console.WriteLine("No has agregado el archivo de texto");
             }
             else
             {
-                string[] lineas = System.IO.File.ReadAllLines(@".\" + args[0]);
+                string[] lineas = System.IO.File.ReadAllLines(@".\"+args[0]);
                 lexico analizador = new lexico();
                 int lineaP = 1;
                 foreach (string linea in lineas)
@@ -35,7 +36,7 @@ namespace ProyectoCompiladores_IDE
                 analizador.obtenerTokens2();
                 analizador.obtenerTokens2E();
                 Console.WriteLine(analizador.tokensResultados());
-                Console.WriteLine("Tokens Errores \t");
+                Console.WriteLine("| Tokens Errores |\t");
                 Console.WriteLine(analizador.tokensResultadosE());
             }
 
