@@ -278,7 +278,7 @@ namespace ProyectoCompiladores_IDE
                             }
                             else
                             {
-                                tokens("Identificador", lexema, i + 1, indice);
+                                tokens("ID", lexema, i + 1, indice);
                             }
                             lexema = "";
                             estado = 0;
@@ -298,7 +298,7 @@ namespace ProyectoCompiladores_IDE
                         }
                         else
                         {
-                            tokens("Digito Entero", lexema.ToString(), i + 1, indice);
+                            tokens("NUM", lexema.ToString(), i + 1, indice);
                             lexema = "";
                             i--;
                             estado = 0;
@@ -326,7 +326,7 @@ namespace ProyectoCompiladores_IDE
                         }
                         else
                         {
-                            tokens("Digito Real", lexema, i + 1, indice);
+                            tokens("NUM", lexema, i + 1, indice);
                             lexema = "";
                             estado = 0;
                             i--;
