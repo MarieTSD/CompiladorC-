@@ -16,6 +16,7 @@ namespace ProyectoCompiladores_IDE
         {
             listaTokens = lista;
         }
+        
         public Nodo arbolSintactico()
         {
             tokenActual = listaTokens.ElementAt(i);

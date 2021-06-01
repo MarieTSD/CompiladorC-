@@ -323,6 +323,14 @@ namespace ProyectoCompiladores_IDE
             LexicoTextBox.Text = analizador.tokensResultados();
             analizador.obtenerTokens2E();
             ErroresTextBox.Text = analizador.tokensResultadosE();
+
+            //Para el analizador sintactico
+            Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
+            Nodo arbol = new Nodo();
+            arbol = analizadorSintactico.arbolSintactico();
+            //Arbol es el que utilizamos para enviarlo al TreeView
+
+
             /*
             //Programa para ejecutar el comando externo
             string cadena = lanzaProceso(@".\Program.exe", rutaArchivo);
