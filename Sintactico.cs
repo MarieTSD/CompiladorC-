@@ -18,9 +18,8 @@ namespace ProyectoCompiladores_IDE
         }
         public Nodo arbolSintactico()
         {
-            Nodo temp = null;
             tokenActual = listaTokens.ElementAt(i);
-            temp = programa();
+            raiz = programa();
             return raiz;
         }
 
@@ -245,10 +244,13 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo asignacion()
         {
-            Nodo temp = new Nodo(tokenActual);
+            Nodo temp = new Nodo();
+            temp.valor = "asignacion";
+            temp.linea = tokenActual.getLinea();
+            temp.hijos[0] = new Nodo(tokenActual);
             comprobar("ID");
             comprobar("=");
-            temp.hijos[0] = bexpresion();
+            temp.hijos[1] = bexpresion();
             comprobar(";");
             return temp;
         }
@@ -256,7 +258,7 @@ namespace ProyectoCompiladores_IDE
         public Nodo bexpresion()
         {
             Nodo temp = bterm();
-            while ((tokenActual.getLexema() == "OR") || (tokenActual.getLexema() == "or"))
+            while (tokenActual.getLexema() == "or")
             {
                 Nodo nuevo = new Nodo(tokenActual);
                 comprobar(tokenActual.getLexema());
@@ -270,7 +272,7 @@ namespace ProyectoCompiladores_IDE
         public Nodo bterm()
         {
             Nodo temp = notfactor();
-            while ((tokenActual.getLexema() == "AND") || (tokenActual.getLexema() == "and"))
+            while (tokenActual.getLexema() == "and")
             {
                 Nodo nuevo = new Nodo(tokenActual);
                 comprobar(tokenActual.getLexema());
