@@ -19,5 +19,13 @@ namespace ProyectoCompiladores_IDE
             valor = "";
             linea = 0;
         }
+
+        public Nodo(token token)
+        {
+            hijos = null;
+            hermano = null;
+            valor = token.getLexema();
+            linea = token.getLinea();
+        }
     }
 }

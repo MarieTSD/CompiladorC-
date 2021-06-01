@@ -23,6 +23,7 @@ namespace ProyectoCompiladores_IDE
             temp = programa();
             return raiz;
         }
+
         public void comprobar(String lex)
         {
             if (lex == tokenActual.getLexema())
@@ -40,35 +41,50 @@ namespace ProyectoCompiladores_IDE
                 //Hubo un error
             }
         }
+
         public Nodo programa()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("program");
             comprobar("{");
-            temp = listaDeclaracion();
-            temp = listaSentencia();
+            temp.hijos[0] = listaDeclaracion();
+            temp.hijos[1] = listaSentencia();
             comprobar("}");
             return temp;
         }
+
         public Nodo listaDeclaracion()
         {
-            Nodo temp = null;
+            Nodo inicio = null;
+            Nodo sig = null;
             while ((tokenActual.getLexema()=="int") || (tokenActual.getLexema() == "float")
                 || (tokenActual.getLexema() == "bool"))
             {
-                temp = declaracion();
+                if(inicio == null)
+                {
+                    inicio = declaracion();
+                    sig = inicio;
+                }
+                else
+                {
+                    Nodo nuevo = declaracion();
+                    sig.hermano = nuevo;
+                    sig = nuevo;
+                }
             }
-            return temp;
+            return inicio;
         }
+
         public Nodo declaracion()
         {
             Nodo temp = tipo();
-            temp = listaId();
+            temp.hijos[0] = listaId();
             return temp;
         }
+
         public Nodo tipo()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             switch (tokenActual.getLexema())
             {
                 case "int":
@@ -80,31 +96,52 @@ namespace ProyectoCompiladores_IDE
                 case "bool":
                     comprobar("bool");
                     break;
+                default:
+                    //error
+                    break;
             }
             return temp;
         }
+
         public Nodo listaId()
         {
-            Nodo temp = null;
+            Nodo inicio = new Nodo(tokenActual);
+            Nodo sig = inicio;
             comprobar("ID");
             while (tokenActual.getLexema() == ",")
             {
                 comprobar(",");
+                Nodo nuevo = new Nodo(tokenActual);
                 comprobar("ID");
+                sig.hermano = nuevo;
+                sig = nuevo;
             }
-            return temp;
+            return inicio;
         }
+
         public Nodo listaSentencia()
         {
-            Nodo temp = null;
+            Nodo inicio = null;
+            Nodo sig = null;
             while ((tokenActual.getLexema()=="if")|| (tokenActual.getLexema() == "while") || (tokenActual.getLexema() == "do")
                 || (tokenActual.getLexema() == "read")|| (tokenActual.getLexema() == "write")|| (tokenActual.getLexema() == "{")
                 || (tokenActual.getLexema() == "ID"))
             {
-                temp = sentencia();
+                if(inicio == null)
+                {
+                    inicio = sentencia();
+                    sig = inicio;
+                }
+                else
+                {
+                    Nodo nuevo = sentencia();
+                    sig.hermano = nuevo;
+                    sig = nuevo;
+                }
             }
-            return temp;
+            return inicio;
         }
+
         public Nodo sentencia()
         {
             Nodo temp = null;
@@ -131,117 +168,141 @@ namespace ProyectoCompiladores_IDE
                 case "ID":
                     temp = asignacion();
                     break;
+                default:
+                    //error
+                    break;
             }
             return temp;
         }
+
         public Nodo seleccion()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("if");
             comprobar("(");
-            temp = bexpresion();
+            temp.hijos[0] = bexpresion();
             comprobar("then");
-            temp = bloque();
+            temp.hijos[1] = bloque();
             if (tokenActual.getLexema() == "else")
             {
                 comprobar("else");
-                temp = bloque();
+                temp.hijos[2] = bloque();
             }
             comprobar("fi");
             return temp;
         }
+
         public Nodo iteracion()
         {
-            Nodo  temp = null;
+            Nodo  temp = new Nodo(tokenActual);
             comprobar("while");
             comprobar("(");
-            temp = bexpresion();
+            temp.hijos[0] = bexpresion();
             comprobar(")");
-            temp = bloque();
+            temp.hijos[1] = bloque();
             return temp;
         }
+
         public Nodo repeticion()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("do");
-            temp = bloque();
+            temp.hijos[0] = bloque();
             comprobar("until");
             comprobar("(");
-            temp = bexpresion();
+            temp.hijos[1] = bexpresion();
             comprobar(")");
             comprobar(";");
             return temp;
         }
+
         public Nodo sentRead()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("read");
+            temp.hijos[0] = new Nodo(tokenActual);
             comprobar("ID");
             comprobar(";");
             return temp;
         }
+
         public Nodo sentWrite()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("write");
-            temp = bexpresion();
+            temp.hijos[0] = bexpresion();
             comprobar(";");
             return temp;
         }
+
         public Nodo bloque()
         {
-            Nodo temp = null;
             comprobar("{");
-            temp = listaSentencia();
+            Nodo temp = listaSentencia();
             comprobar("}");
             return temp;
         }
+
         public Nodo asignacion()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             comprobar("ID");
             comprobar("=");
-            temp = bexpresion();
+            temp.hijos[0] = bexpresion();
             comprobar(";");
             return temp;
         }
        
         public Nodo bexpresion()
         {
-            Nodo temp = null;
-            temp = bterm();
+            Nodo temp = bterm();
             while ((tokenActual.getLexema() == "OR") || (tokenActual.getLexema() == "or"))
             {
+                Nodo nuevo = new Nodo(tokenActual);
                 comprobar(tokenActual.getLexema());
-                temp = bterm();
+                nuevo.hijos[0] = temp;
+                nuevo.hijos[1] = bterm();
+                temp = nuevo;
             }
             return temp;
         }
+
         public Nodo bterm()
         {
             Nodo temp = notfactor();
             while ((tokenActual.getLexema() == "AND") || (tokenActual.getLexema() == "and"))
             {
+                Nodo nuevo = new Nodo(tokenActual);
                 comprobar(tokenActual.getLexema());
-                temp = notfactor();
+                nuevo.hijos[0] = temp;
+                nuevo.hijos[1] = notfactor();
+                temp = nuevo;
             }
             return temp;
         }
+
         public Nodo notfactor()
         {
             Nodo temp = null;
             if(tokenActual.getLexema() == "not")
             {
+                temp = new Nodo(tokenActual);
                 comprobar("not");
+                temp.hijos[0] = bfactor();
             }
-            temp = bfactor();
+            else
+            {
+                temp = bfactor();
+            }
             return temp;
         }
+
         public Nodo bfactor()
         {
             Nodo temp = null;
             if((tokenActual.getLexema() == "true") || (tokenActual.getLexema() == "false"))
             {
+                temp = new Nodo(tokenActual);
                 if(tokenActual.getLexema() == "true")
                 {
                     comprobar("true");
@@ -257,21 +318,24 @@ namespace ProyectoCompiladores_IDE
             }
             return temp;
         }
+
         public Nodo relacion()
         {
             Nodo temp = expresion();
             if((tokenActual.getLexema()=="<=") || (tokenActual.getLexema() == "<") || (tokenActual.getLexema() == ">")
                 || (tokenActual.getLexema() == ">=") || (tokenActual.getLexema() == "==") || (tokenActual.getLexema() == "!="))
             {
-                //Aqui tiene que ir uno para nodo iz y otro para derecho
-                temp = relOp();
-                temp = expresion();
+                Nodo nuevo = relOp();
+                nuevo.hijos[0] = temp;
+                nuevo.hijos[1] = expresion();
+                temp = nuevo;
             }
             return temp;
         }
+
         public Nodo relOp()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             switch (tokenActual.getLexema())
             {
                 case "<=":
@@ -298,19 +362,23 @@ namespace ProyectoCompiladores_IDE
             }
             return temp;
         }
+
         public Nodo expresion()
         {
-            Nodo temp = expresion();
+            Nodo temp = termino();
             while ((tokenActual.getLexema() == "+") || (tokenActual.getLexema() == "-"))
             {
-                comprobar(tokenActual.getLexema());
-                temp = termino();
+                Nodo nuevo = sumaOp();
+                nuevo.hijos[0] = temp;
+                nuevo.hijos[1] = termino();
+                temp = nuevo;
             }
             return temp;
         }
+
         public Nodo sumaOp()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             switch (tokenActual.getLexema())
             {
                 case "+":
@@ -319,23 +387,29 @@ namespace ProyectoCompiladores_IDE
                 case "-":
                     comprobar("-");
                     break;
+                default:
+                    //error
+                    break;
             }
             return temp;
         }
+
         public Nodo termino()
         {
-            Nodo temp = null;
-            temp = signoFactor();
+            Nodo temp = signoFactor();
             while ((tokenActual.getLexema() == "*") || (tokenActual.getLexema() == "/"))
             {
-                comprobar(tokenActual.getLexema());
-                temp = signoFactor();
+                Nodo nuevo = multOp();
+                nuevo.hijos[0] = temp;
+                nuevo.hijos[1] = signoFactor();
+                temp = nuevo;
             }
             return temp;
         }
+
         public Nodo multOp()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo(tokenActual);
             switch (tokenActual.getLexema())
             {
                 case "*":
@@ -344,19 +418,28 @@ namespace ProyectoCompiladores_IDE
                 case "/":
                     comprobar("/");
                     break;
+                default:
+                    //error
+                    break;
             }
             return temp;
         }
+
         public Nodo signoFactor()
         {
             Nodo temp = null;
             if ((tokenActual.getLexema() == "+") || (tokenActual.getLexema() == "-"))
             {
                 temp = sumaOp();
+                temp.hijos[0] = factor();
             }
-            temp = factor();
+            else
+            {
+                temp = factor();
+            }
             return temp;
         }
+
         public Nodo factor()
         {
             Nodo temp = null;
@@ -368,15 +451,14 @@ namespace ProyectoCompiladores_IDE
                     comprobar(")");
                     break;
                 case "ID":
-                    temp.valor = tokenActual.getLexema();
+                    temp = new Nodo(tokenActual);
                     comprobar("ID");
                     break;
                 case "NUM":
-                    temp.valor = tokenActual.getLexema();
+                    temp = new Nodo(tokenActual);
                     comprobar("NUM");
                     break;
                 default:
-
                     //Error
                     break;
             }
