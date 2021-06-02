@@ -9,12 +9,15 @@ namespace ProyectoCompiladores_IDE
     class Sintactico
     {
         static private List<token> listaTokens;
+        static private List<token> errores;
         private token tokenActual;
         private Nodo raiz = null;
+        private String tokenResultado;
         private int i = 0;
         public Sintactico(List<token> lista)
         {
             listaTokens = lista;
+            errores = new List<token> ();
         }
         
         public Nodo arbolSintactico()
@@ -22,6 +25,15 @@ namespace ProyectoCompiladores_IDE
             tokenActual = listaTokens.ElementAt(i);
             raiz = programa();
             return raiz;
+        }
+        public String erroresSintacticos()
+        {
+            for (int i = 0; i < errores.Count; i++)
+            {
+                token actual = errores.ElementAt(i);
+                tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
+            }
+            return tokenResultado;
         }
 
         public void comprobar(String lex)
@@ -54,6 +66,7 @@ namespace ProyectoCompiladores_IDE
             else
             {
                 //Hubo un error
+                errores.Add(tokenActual);
             }
         }
 
@@ -113,6 +126,7 @@ namespace ProyectoCompiladores_IDE
                     break;
                 default:
                     //error
+                    errores.Add(tokenActual);
                     break;
             }
             return temp;
@@ -194,8 +208,9 @@ namespace ProyectoCompiladores_IDE
                     if (tokenActual.getIdToken() == "ID")
                         temp = asignacion();
                     else
-                        Console.WriteLine("Error");
-                        //error
+                       // Console.WriteLine("Error");
+                       errores.Add(tokenActual);
+                    //error
                     break;
             }
 
@@ -391,6 +406,7 @@ namespace ProyectoCompiladores_IDE
                     break;
                 default:
                     //Marcar error
+                    errores.Add(tokenActual);
                     break;
             }
             return temp;
@@ -422,6 +438,7 @@ namespace ProyectoCompiladores_IDE
                     break;
                 default:
                     //error
+                    errores.Add(tokenActual);
                     break;
             }
             return temp;
@@ -453,6 +470,7 @@ namespace ProyectoCompiladores_IDE
                     break;
                 default:
                     //error
+                    errores.Add(tokenActual);
                     break;
             }
             return temp;
@@ -500,7 +518,8 @@ namespace ProyectoCompiladores_IDE
                         comprobar(")");
                     }
                     else
-                        Console.WriteLine("Error");
+                        //Console.WriteLine("Error");
+                        errores.Add(tokenActual);
                     //Error
                     break;
             }

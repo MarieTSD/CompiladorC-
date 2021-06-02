@@ -324,14 +324,19 @@ namespace ProyectoCompiladores_IDE
             ErroresTextBox.Text = analizador.tokensResultadosE();
 
             //Para el analizador sintactico
-            Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
-            Nodo arbol = new Nodo();
-            arbol = analizadorSintactico.arbolSintactico();
+            if(analizador.tokensResultadosE() == null)
+            {
+                Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
+                Nodo arbol = new Nodo();
+                arbol = analizadorSintactico.arbolSintactico();
 
-            //Arbol es el que utilizamos para enviarlo al TreeView
-            treeView1.Nodes.Clear();
-            TreeNode aux = treeView1.Nodes.Add(arbol.valor);
-            CrearTreeview(null, aux, arbol);
+                //Arbol es el que utilizamos para enviarlo al TreeView
+                treeView1.Nodes.Clear();
+                TreeNode aux = treeView1.Nodes.Add(arbol.valor);
+                CrearTreeview(null, aux, arbol);
+                ErroresTextBox.Text = analizadorSintactico.erroresSintacticos();
+            }
+            
 
             /*
             //Programa para ejecutar el comando externo
