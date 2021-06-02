@@ -327,7 +327,29 @@ namespace ProyectoCompiladores_IDE
             //Para el analizador sintactico
             Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
             Nodo arbol = new Nodo();
+            Nodo arbol2 = new Nodo();
             arbol = analizadorSintactico.arbolSintactico();
+            arbol2 = arbol;
+            int l = 0;
+            sinta.Text = arbol2.valor;
+            sinta.Text += " "+ arbol2.hijos[0].valor;
+            sinta.Text += " " + arbol2.hijos[0].hijos[0].valor;
+            sinta.Text += " " + arbol2.hijos[0].hermano.valor;
+            //sinta.Text += " " + arbol2.hijos[0].hijos[0].hijos[0].valor;
+            //sinta.Text += " " + arbol2.hijos[0].hijos[1].valor;
+            //sinta.Text += " " + arbol2.hijos[0].hijos[2].valor;
+            //sinta.Text += " " + arbol2.hijos[0].hijos[0].hermano.valor;
+            //sinta.Text += " " + arbol2.hijos[0].hijos[0].hermano.hermano.valor;
+            //sinta.Text = arbol2.hijos[1].valor;
+            //sinta.Text = arbol.valor;
+            /* while(l<3)
+             {
+                 Nodo nu = new Nodo();
+                 sinta.Text = arbol2.valor;
+                 nu = arbol2.hijos[0];
+
+                 l++;
+             }*/
             //Arbol es el que utilizamos para enviarlo al TreeView
 
 
@@ -363,7 +385,10 @@ namespace ProyectoCompiladores_IDE
                 return proc.StandardOutput.ReadToEnd(); //Devuelve el resultado 
                 
         }
-       
 
+        private void tabSintactico_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -77,8 +77,10 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo declaracion()
         {
-            Nodo temp = tipo();
+            Nodo temp = new Nodo();
+            temp = tipo();
             temp.hijos[0] = listaId();
+            Console.WriteLine("Holaaa1");
             return temp;
         }
 
@@ -107,25 +109,32 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo inicio = new Nodo(tokenActual);
             Nodo sig = inicio;
+            int aux = 0;
             comprobar("ID");
             while (tokenActual.getLexema() == ",")
             {
                 comprobar(",");
                 Nodo nuevo = new Nodo(tokenActual);
                 comprobar("ID");
+                
                 sig.hermano = nuevo;
                 sig = nuevo;
+                /*
+                inicio.hijos[aux] = nuevo;
+                aux++;*/
             }
+            comprobar(";");
+         
             return inicio;
         }
 
         public Nodo listaSentencia()
         {
-            Nodo inicio = null;
-            Nodo sig = null;
+            Nodo inicio = new Nodo();
+            Nodo sig = new Nodo();
             while ((tokenActual.getLexema()=="if")|| (tokenActual.getLexema() == "while") || (tokenActual.getLexema() == "do")
                 || (tokenActual.getLexema() == "read")|| (tokenActual.getLexema() == "write")|| (tokenActual.getLexema() == "{")
-                || (tokenActual.getLexema() == "ID"))
+                || (tokenActual.getIdToken() == "ID"))
             {
                 if(inicio == null)
                 {
@@ -144,7 +153,7 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo sentencia()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
             switch (tokenActual.getLexema())
             {
                 case "if":
@@ -171,6 +180,10 @@ namespace ProyectoCompiladores_IDE
                 default:
                     //error
                     break;
+            }
+            if(tokenActual.getIdToken() == "ID")
+            {
+                temp = asignacion();
             }
             return temp;
         }
@@ -286,7 +299,7 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo notfactor()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
             if(tokenActual.getLexema() == "not")
             {
                 temp = new Nodo(tokenActual);
@@ -302,7 +315,7 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo bfactor()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
             if((tokenActual.getLexema() == "true") || (tokenActual.getLexema() == "false"))
             {
                 temp = new Nodo(tokenActual);
@@ -430,7 +443,7 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo signoFactor()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
             if ((tokenActual.getLexema() == "+") || (tokenActual.getLexema() == "-"))
             {
                 temp = sumaOp();
@@ -445,11 +458,12 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo factor()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
           
             switch (tokenActual.getIdToken())
             {
                 case "(":
+                    comprobar("(");
                     temp = bexpresion();
                     comprobar(")");
                     break;
@@ -464,6 +478,12 @@ namespace ProyectoCompiladores_IDE
                 default:
                     //Error
                     break;
+            }
+            if(tokenActual.getLexema() == "(")
+            {
+                comprobar("(");
+                temp = bexpresion();
+                comprobar(")");
             }
             return temp;
         }
