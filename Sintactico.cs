@@ -29,12 +29,27 @@ namespace ProyectoCompiladores_IDE
             if (lex == tokenActual.getLexema())
             {
                 i++;
-                tokenActual = listaTokens.ElementAt(i);
+                if(i<listaTokens.Count)
+                    tokenActual = listaTokens.ElementAt(i);
+                while(tokenActual.getIdToken() == "Comentario" || tokenActual.getIdToken() == "Comentario /**/")
+                {
+                    i++;
+                    if (i < listaTokens.Count)
+                        tokenActual = listaTokens.ElementAt(i);
+                }
+
             }
             else if (lex == tokenActual.getIdToken())
             {
                 i++;
-                tokenActual = listaTokens.ElementAt(i);
+                if (i < listaTokens.Count)
+                    tokenActual = listaTokens.ElementAt(i);
+                while (tokenActual.getIdToken() == "Comentario" || tokenActual.getIdToken() == "Comentario/**/")
+                {
+                    i++;
+                    if (i < listaTokens.Count)
+                        tokenActual = listaTokens.ElementAt(i);
+                }
             }
             else
             {
@@ -79,6 +94,7 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo temp = tipo();
             temp.hijos[0] = listaId();
+            comprobar(";");
             return temp;
         }
 
@@ -125,7 +141,7 @@ namespace ProyectoCompiladores_IDE
             Nodo sig = null;
             while ((tokenActual.getLexema()=="if")|| (tokenActual.getLexema() == "while") || (tokenActual.getLexema() == "do")
                 || (tokenActual.getLexema() == "read")|| (tokenActual.getLexema() == "write")|| (tokenActual.getLexema() == "{")
-                || (tokenActual.getLexema() == "ID"))
+                || (tokenActual.getIdToken() == "ID"))
             {
                 if(inicio == null)
                 {
@@ -172,6 +188,10 @@ namespace ProyectoCompiladores_IDE
                     //error
                     break;
             }
+
+            if(tokenActual.getIdToken() == "ID")
+                temp = asignacion();
+
             return temp;
         }
 

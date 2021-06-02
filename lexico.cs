@@ -198,6 +198,7 @@ namespace ProyectoCompiladores_IDE
                         if (c == '/')
                         {
                             lexema += c;
+                            tokens("Comentario", lexema, i + 1, indice);
                             estado = 28;
                         }
                         else if (c == '*')

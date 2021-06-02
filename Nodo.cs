@@ -14,7 +14,7 @@ namespace ProyectoCompiladores_IDE
         public int linea;
         public Nodo()
         {
-            hijos = null;
+            hijos = new Nodo[3];
             hermano = null;
             valor = "";
             linea = 0;
@@ -22,7 +22,7 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo(token token)
         {
-            hijos = null;
+            hijos = new Nodo[3];
             hermano = null;
             valor = token.getLexema();
             linea = token.getLinea();

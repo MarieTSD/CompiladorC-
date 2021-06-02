@@ -203,7 +203,6 @@ namespace ProyectoCompiladores_IDE
             {
                 MessageBox.Show("Selecciona lo que deseas copiar");
             }
-                
         }
 
         private void unToolStripMenuItem_Click(object sender, EventArgs e)
@@ -328,8 +327,10 @@ namespace ProyectoCompiladores_IDE
             Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
             Nodo arbol = new Nodo();
             arbol = analizadorSintactico.arbolSintactico();
-            //Arbol es el que utilizamos para enviarlo al TreeView
 
+            //Arbol es el que utilizamos para enviarlo al TreeView
+            TreeNode aux = treeView1.Nodes.Add(arbol.valor);
+            CrearTreeview(null, aux, arbol);
 
             /*
             //Programa para ejecutar el comando externo
@@ -343,6 +344,28 @@ namespace ProyectoCompiladores_IDE
 
 
         }
+
+        void CrearTreeview(TreeNode padre, TreeNode treeNode, Nodo nodo)
+        {
+            for(int i=0; i<3; i++)
+            {
+                if (nodo.hijos[i] != null)
+                {
+                    TreeNode aux = treeNode.Nodes.Add(nodo.hijos[i].valor);
+                    CrearTreeview(treeNode, aux, nodo.hijos[i]);
+                }
+                else
+                    break;
+            }
+
+            if(nodo.hermano != null)
+            {
+                TreeNode aux = padre.Nodes.Add(nodo.hermano.valor);
+                CrearTreeview(padre, aux, nodo.hermano);
+            }
+        }
+
+        
         //--FIN----------------------Propiedades de variables reservadas
 
         private static string lanzaProceso(string Proceso, string Parametros)
