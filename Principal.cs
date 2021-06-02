@@ -327,7 +327,11 @@ namespace ProyectoCompiladores_IDE
             //Para el analizador sintactico
             Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
             Nodo arbol = new Nodo();
-            arbol = analizadorSintactico.arbolSintactico();
+            TreeNode arbol2 = new TreeNode();
+            arbol2 = analizadorSintactico.arbolSintactico2();
+            treeView1.Nodes.Add(arbol2);
+            //tabSintactico.Text = arbol3.SelectedNode.Nodes;
+            //arbol = analizadorSintactico.arbolSintactico();
             //Arbol es el que utilizamos para enviarlo al TreeView
 
 
