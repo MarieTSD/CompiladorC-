@@ -94,7 +94,6 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo temp = tipo();
             temp.hijos[0] = listaId();
-            comprobar(";");
             return temp;
         }
 
@@ -123,15 +122,22 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo inicio = new Nodo(tokenActual);
             Nodo sig = inicio;
+            int aux = 0;
             comprobar("ID");
             while (tokenActual.getLexema() == ",")
             {
                 comprobar(",");
                 Nodo nuevo = new Nodo(tokenActual);
                 comprobar("ID");
+                
                 sig.hermano = nuevo;
                 sig = nuevo;
+                /*
+                inicio.hijos[aux] = nuevo;
+                aux++;*/
             }
+            comprobar(";");
+         
             return inicio;
         }
 
@@ -185,12 +191,15 @@ namespace ProyectoCompiladores_IDE
                     temp = asignacion();
                     break;
                 default:
-                    //error
+                    if (tokenActual.getIdToken() == "ID")
+                        temp = asignacion();
+                    else
+                        Console.WriteLine("Error");
+                        //error
                     break;
             }
 
-            if(tokenActual.getIdToken() == "ID")
-                temp = asignacion();
+            
 
             return temp;
         }
@@ -201,6 +210,7 @@ namespace ProyectoCompiladores_IDE
             comprobar("if");
             comprobar("(");
             temp.hijos[0] = bexpresion();
+            comprobar(")");
             comprobar("then");
             temp.hijos[1] = bloque();
             if (tokenActual.getLexema() == "else")
@@ -465,11 +475,12 @@ namespace ProyectoCompiladores_IDE
 
         public Nodo factor()
         {
-            Nodo temp = null;
+            Nodo temp = new Nodo();
           
             switch (tokenActual.getIdToken())
             {
                 case "(":
+                    comprobar("(");
                     temp = bexpresion();
                     comprobar(")");
                     break;
@@ -482,6 +493,14 @@ namespace ProyectoCompiladores_IDE
                     comprobar("NUM");
                     break;
                 default:
+                    if (tokenActual.getLexema() == "(")
+                    {
+                        comprobar("(");
+                        temp = bexpresion();
+                        comprobar(")");
+                    }
+                    else
+                        Console.WriteLine("Error");
                     //Error
                     break;
             }

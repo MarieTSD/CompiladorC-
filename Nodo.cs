@@ -8,7 +8,7 @@ namespace ProyectoCompiladores_IDE
 {
     class Nodo
     {
-        public Nodo [] hijos;
+        public Nodo[] hijos;
         public Nodo hermano;
         public string valor;
         public int linea;

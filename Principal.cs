@@ -17,7 +17,7 @@ namespace ProyectoCompiladores_IDE
     {
         string rutaArchivo;
 
-        Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|else|fi|do|until|while|read|write|#.*");
+        Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|then|else|fi|do|until|while|read|write|#.*");
         Regex otro_rx = new Regex(@"<.*>|\"".*\""");
         String tokenResultado;
         public Principal()
@@ -329,6 +329,7 @@ namespace ProyectoCompiladores_IDE
             arbol = analizadorSintactico.arbolSintactico();
 
             //Arbol es el que utilizamos para enviarlo al TreeView
+            treeView1.Nodes.Clear();
             TreeNode aux = treeView1.Nodes.Add(arbol.valor);
             CrearTreeview(null, aux, arbol);
 
@@ -386,7 +387,10 @@ namespace ProyectoCompiladores_IDE
                 return proc.StandardOutput.ReadToEnd(); //Devuelve el resultado 
                 
         }
-       
 
+        private void tabSintactico_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
