@@ -13,6 +13,7 @@ namespace ProyectoCompiladores_IDE
         private token tokenActual;
         private Nodo raiz = null;
         private String tokenResultado;
+        private String nodosArbol;
         private int i = 0;
         public Sintactico(List<token> lista)
         {
@@ -31,19 +32,25 @@ namespace ProyectoCompiladores_IDE
             for (int i = 0; i < errores.Count; i++)
             {
                 token actual = errores.ElementAt(i);
-                tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
+                tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getTipoToken() + ",Linea: " + actual.getLinea() + " (Sintactico)]" + Environment.NewLine;
             }
             return tokenResultado;
         }
 
-        public void comprobar(String lex)
+        public String getNodosArbol(Nodo arbol)
         {
-            if (lex == tokenActual.getLexema())
+            ImprimirArbol(arbol);
+            return nodosArbol;
+        }
+
+        public void comprobar(token.Type tipoToken)
+        {
+            if (tipoToken == tokenActual.getTipoToken())
             {
                 i++;
                 if(i<listaTokens.Count)
                     tokenActual = listaTokens.ElementAt(i);
-                while(tokenActual.getIdToken() == "Comentario" || tokenActual.getIdToken() == "Comentario /**/")
+                while(tokenActual.getTipoToken() == token.Type.COMENTARIO)
                 {
                     i++;
                     if (i < listaTokens.Count)
@@ -51,17 +58,27 @@ namespace ProyectoCompiladores_IDE
                 }
 
             }
-            else if (lex == tokenActual.getIdToken())
+            else
+            {
+                //Hubo un error
+                errores.Add(tokenActual);
+            }
+        }
+        
+        public void comprobarTipo(token.DataType tipoDato)
+        {
+            if (tipoDato == tokenActual.getTipoDato())
             {
                 i++;
-                if (i < listaTokens.Count)
+                if(i<listaTokens.Count)
                     tokenActual = listaTokens.ElementAt(i);
-                while (tokenActual.getIdToken() == "Comentario" || tokenActual.getIdToken() == "Comentario/**/")
+                while(tokenActual.getTipoToken() == token.Type.COMENTARIO)
                 {
                     i++;
                     if (i < listaTokens.Count)
                         tokenActual = listaTokens.ElementAt(i);
                 }
+
             }
             else
             {
@@ -73,11 +90,11 @@ namespace ProyectoCompiladores_IDE
         public Nodo programa()
         {
             Nodo temp = new Nodo(tokenActual);
-            comprobar("program");
-            comprobar("{");
+            comprobar(token.Type.PROGRAM);
+            comprobar(token.Type.L_LLAVE);
             temp.hijos[0] = listaDeclaracion();
             temp.hijos[1] = listaSentencia();
-            comprobar("}");
+            comprobar(token.Type.R_LLAVE);
             return temp;
         }
 
@@ -85,8 +102,7 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo inicio = null;
             Nodo sig = null;
-            while ((tokenActual.getLexema()=="int") || (tokenActual.getLexema() == "float")
-                || (tokenActual.getLexema() == "bool"))
+            while (tokenActual.getTipoToken() == token.Type.DATATYPE)
             {
                 if(inicio == null)
                 {
@@ -106,23 +122,23 @@ namespace ProyectoCompiladores_IDE
         public Nodo declaracion()
         {
             Nodo temp = tipo();
-            temp.hijos[0] = listaId();
+            temp.hijos[0] = listaId(temp.getTipoDato());
             return temp;
         }
 
         public Nodo tipo()
         {
             Nodo temp = new Nodo(tokenActual);
-            switch (tokenActual.getLexema())
+            switch (tokenActual.getTipoDato())
             {
-                case "int":
-                    comprobar("int");
+                case token.DataType.INTEGER:
+                    comprobarTipo(token.DataType.INTEGER);
                     break;
-                case "float":
-                    comprobar("float");
+                case token.DataType.REAL:
+                    comprobarTipo(token.DataType.REAL);
                     break;
-                case "bool":
-                    comprobar("bool");
+                case token.DataType.BOOLEAN:
+                    comprobarTipo(token.DataType.BOOLEAN);
                     break;
                 default:
                     //error
@@ -132,25 +148,29 @@ namespace ProyectoCompiladores_IDE
             return temp;
         }
 
-        public Nodo listaId()
+        public Nodo listaId(token.DataType tipo)
         {
             Nodo inicio = new Nodo(tokenActual);
+            inicio.setTipoDato(tipo);
+
+            Symtab.AñadirVariable(inicio);
+
             Nodo sig = inicio;
-            int aux = 0;
-            comprobar("ID");
-            while (tokenActual.getLexema() == ",")
+            comprobar(token.Type.ID);
+            while (tokenActual.getTipoToken() == token.Type.COMA)
             {
-                comprobar(",");
+                comprobar(token.Type.COMA);
                 Nodo nuevo = new Nodo(tokenActual);
-                comprobar("ID");
+                nuevo.setTipoDato(tipo);
+
+                Symtab.AñadirVariable(nuevo);
+
+                comprobar(token.Type.ID);
                 
                 sig.hermano = nuevo;
                 sig = nuevo;
-                /*
-                inicio.hijos[aux] = nuevo;
-                aux++;*/
             }
-            comprobar(";");
+            comprobar(token.Type.SEMI);
          
             return inicio;
         }
@@ -159,9 +179,11 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo inicio = null;
             Nodo sig = null;
-            while ((tokenActual.getLexema()=="if")|| (tokenActual.getLexema() == "while") || (tokenActual.getLexema() == "do")
-                || (tokenActual.getLexema() == "read")|| (tokenActual.getLexema() == "write")|| (tokenActual.getLexema() == "{")
-                || (tokenActual.getIdToken() == "ID"))
+            while(tokenActual.getTipoToken() == token.Type.IF ||  tokenActual.getTipoToken()  == token.Type.WHILE ||   
+                  tokenActual.getTipoToken() == token.Type.DO || tokenActual.getTipoToken() == token.Type.READ ||
+                  tokenActual.getTipoToken() == token.Type.WRITE || tokenActual.getTipoToken() == token.Type.L_LLAVE ||
+                  tokenActual.getTipoToken() == token.Type.ID
+                  )
             {
                 if(inicio == null)
                 {
@@ -181,40 +203,33 @@ namespace ProyectoCompiladores_IDE
         public Nodo sentencia()
         {
             Nodo temp = null;
-            switch (tokenActual.getLexema())
+            switch (tokenActual.getTipoToken())
             {
-                case "if":
+                case token.Type.IF:
                     temp = seleccion();
                     break;
-                case "while":
+                case token.Type.WHILE:
                     temp = iteracion();
                     break;
-                case "do":
+                case token.Type.DO:
                     temp = repeticion();
                     break;
-                case "read":
+                case token.Type.READ:
                     temp = sentRead();
                     break;
-                case "write":
+                case token.Type.WRITE:
                     temp = sentWrite();
                     break;
-                case "{":
+                case token.Type.L_LLAVE:
                     temp = bloque();
                     break;
-                case "ID":
+                case token.Type.ID:
                     temp = asignacion();
                     break;
                 default:
-                    if (tokenActual.getIdToken() == "ID")
-                        temp = asignacion();
-                    else
-                       // Console.WriteLine("Error");
-                       errores.Add(tokenActual);
-                    //error
+                    errores.Add(tokenActual);
                     break;
             }
-
-            
 
             return temp;
         }
@@ -222,28 +237,28 @@ namespace ProyectoCompiladores_IDE
         public Nodo seleccion()
         {
             Nodo temp = new Nodo(tokenActual);
-            comprobar("if");
-            comprobar("(");
+            comprobar(token.Type.IF);
+            comprobar(token.Type.LPAREN);
             temp.hijos[0] = bexpresion();
-            comprobar(")");
-            comprobar("then");
+            comprobar(token.Type.RPAREN);
+            comprobar(token.Type.THEN);
             temp.hijos[1] = bloque();
-            if (tokenActual.getLexema() == "else")
+            if (tokenActual.getTipoToken() == token.Type.ELSE)
             {
-                comprobar("else");
+                comprobar(token.Type.ELSE);
                 temp.hijos[2] = bloque();
             }
-            comprobar("fi");
+            comprobar(token.Type.FI);
             return temp;
         }
 
         public Nodo iteracion()
         {
             Nodo  temp = new Nodo(tokenActual);
-            comprobar("while");
-            comprobar("(");
+            comprobar(token.Type.WHILE);
+            comprobar(token.Type.LPAREN);
             temp.hijos[0] = bexpresion();
-            comprobar(")");
+            comprobar(token.Type.RPAREN);
             temp.hijos[1] = bloque();
             return temp;
         }
@@ -251,63 +266,65 @@ namespace ProyectoCompiladores_IDE
         public Nodo repeticion()
         {
             Nodo temp = new Nodo(tokenActual);
-            comprobar("do");
+            comprobar(token.Type.DO);
             temp.hijos[0] = bloque();
-            comprobar("until");
-            comprobar("(");
+            comprobar(token.Type.UNTIL);
+            comprobar(token.Type.LPAREN);
             temp.hijos[1] = bexpresion();
-            comprobar(")");
-            comprobar(";");
+            comprobar(token.Type.RPAREN);
+            comprobar(token.Type.SEMI);
             return temp;
         }
 
         public Nodo sentRead()
         {
             Nodo temp = new Nodo(tokenActual);
-            comprobar("read");
+            comprobar(token.Type.READ);
             temp.hijos[0] = new Nodo(tokenActual);
-            comprobar("ID");
-            comprobar(";");
+            comprobar(token.Type.ID);
+            comprobar(token.Type.SEMI);
             return temp;
         }
 
         public Nodo sentWrite()
         {
             Nodo temp = new Nodo(tokenActual);
-            comprobar("write");
+            comprobar(token.Type.WRITE);
             temp.hijos[0] = bexpresion();
-            comprobar(";");
+            comprobar(token.Type.SEMI);
             return temp;
         }
 
         public Nodo bloque()
         {
-            comprobar("{");
+            comprobar(token.Type.L_LLAVE);
             Nodo temp = listaSentencia();
-            comprobar("}");
+            comprobar(token.Type.R_LLAVE);
             return temp;
         }
 
         public Nodo asignacion()
         {
             Nodo temp = new Nodo();
-            temp.valor = "asignacion";
-            temp.linea = tokenActual.getLinea();
+            temp.setLexema("Asignacion");
+            temp.setLinea(tokenActual.getLinea());
             temp.hijos[0] = new Nodo(tokenActual);
-            comprobar("ID");
-            comprobar("=");
+            temp.setTipoToken(token.Type.ASIGNACION);
+
+            comprobar(token.Type.ID);
+            comprobar(token.Type.ASIGNACION);
             temp.hijos[1] = bexpresion();
-            comprobar(";");
+            comprobar(token.Type.SEMI);
             return temp;
         }
        
         public Nodo bexpresion()
         {
             Nodo temp = bterm();
-            while (tokenActual.getLexema() == "or")
+            while (tokenActual.getTipoToken() == token.Type.OR)
             {
                 Nodo nuevo = new Nodo(tokenActual);
-                comprobar(tokenActual.getLexema());
+                comprobar(token.Type.OR);
                 nuevo.hijos[0] = temp;
                 nuevo.hijos[1] = bterm();
                 temp = nuevo;
@@ -318,10 +335,10 @@ namespace ProyectoCompiladores_IDE
         public Nodo bterm()
         {
             Nodo temp = notfactor();
-            while (tokenActual.getLexema() == "and")
+            while (tokenActual.getTipoToken() == token.Type.AND)
             {
                 Nodo nuevo = new Nodo(tokenActual);
-                comprobar(tokenActual.getLexema());
+                comprobar(token.Type.AND);
                 nuevo.hijos[0] = temp;
                 nuevo.hijos[1] = notfactor();
                 temp = nuevo;
@@ -332,10 +349,10 @@ namespace ProyectoCompiladores_IDE
         public Nodo notfactor()
         {
             Nodo temp = null;
-            if(tokenActual.getLexema() == "not")
+            if(tokenActual.getTipoToken() == token.Type.NOT)
             {
                 temp = new Nodo(tokenActual);
-                comprobar("not");
+                comprobar(token.Type.NOT);
                 temp.hijos[0] = bfactor();
             }
             else
@@ -348,16 +365,16 @@ namespace ProyectoCompiladores_IDE
         public Nodo bfactor()
         {
             Nodo temp = null;
-            if((tokenActual.getLexema() == "true") || (tokenActual.getLexema() == "false"))
+            if(tokenActual.getTipoToken() == token.Type.TRUE || tokenActual.getTipoToken() == token.Type.FALSE)
             {
                 temp = new Nodo(tokenActual);
-                if(tokenActual.getLexema() == "true")
+                if(tokenActual.getTipoToken() == token.Type.TRUE)
                 {
-                    comprobar("true");
+                    comprobar(token.Type.TRUE);
                 }
                 else
                 {
-                    comprobar("false");
+                    comprobar(token.Type.FALSE);
                 }
             }
             else
@@ -370,8 +387,10 @@ namespace ProyectoCompiladores_IDE
         public Nodo relacion()
         {
             Nodo temp = expresion();
-            if((tokenActual.getLexema()=="<=") || (tokenActual.getLexema() == "<") || (tokenActual.getLexema() == ">")
-                || (tokenActual.getLexema() == ">=") || (tokenActual.getLexema() == "==") || (tokenActual.getLexema() == "!="))
+            if(tokenActual.getTipoToken() == token.Type.MENOR_IGUAL || tokenActual.getTipoToken() == token.Type.MENOR_QUE ||
+               tokenActual.getTipoToken() == token.Type.MAYOR_IGUAL || tokenActual.getTipoToken() == token.Type.MAYOR_QUE ||
+               tokenActual.getTipoToken() == token.Type.IGUALDAD || tokenActual.getTipoToken() == token.Type.DESIGUALDAD
+              )
             {
                 Nodo nuevo = relOp();
                 nuevo.hijos[0] = temp;
@@ -384,25 +403,25 @@ namespace ProyectoCompiladores_IDE
         public Nodo relOp()
         {
             Nodo temp = new Nodo(tokenActual);
-            switch (tokenActual.getLexema())
+            switch (tokenActual.getTipoToken())
             {
-                case "<=":
-                    comprobar("<=");
+                case token.Type.MENOR_IGUAL:
+                    comprobar(token.Type.MENOR_IGUAL);
                     break;
-                case "<":
-                    comprobar("<");
+                case token.Type.MENOR_QUE:
+                    comprobar(token.Type.MENOR_QUE);
                     break;
-                case ">":
-                    comprobar(">");
+                case token.Type.MAYOR_IGUAL:
+                    comprobar(token.Type.MAYOR_IGUAL);
                     break;
-                case ">=":
-                    comprobar(">=");
+                case token.Type.MAYOR_QUE:
+                    comprobar(token.Type.MAYOR_QUE);
                     break;
-                case "==":
-                    comprobar("==");
+                case token.Type.IGUALDAD:
+                    comprobar(token.Type.IGUALDAD);
                     break;
-                case "!=":
-                    comprobar("!=");
+                case token.Type.DESIGUALDAD:
+                    comprobar(token.Type.DESIGUALDAD);
                     break;
                 default:
                     //Marcar error
@@ -415,7 +434,7 @@ namespace ProyectoCompiladores_IDE
         public Nodo expresion()
         {
             Nodo temp = termino();
-            while ((tokenActual.getLexema() == "+") || (tokenActual.getLexema() == "-"))
+            while (tokenActual.getTipoToken() == token.Type.SUMA || tokenActual.getTipoToken() == token.Type.RESTA)
             {
                 Nodo nuevo = sumaOp();
                 nuevo.hijos[0] = temp;
@@ -428,13 +447,13 @@ namespace ProyectoCompiladores_IDE
         public Nodo sumaOp()
         {
             Nodo temp = new Nodo(tokenActual);
-            switch (tokenActual.getLexema())
+            switch (tokenActual.getTipoToken())
             {
-                case "+":
-                    comprobar("+");
+                case token.Type.SUMA:
+                    comprobar(token.Type.SUMA);
                     break;
-                case "-":
-                    comprobar("-");
+                case token.Type.RESTA:
+                    comprobar(token.Type.RESTA);
                     break;
                 default:
                     //error
@@ -447,7 +466,7 @@ namespace ProyectoCompiladores_IDE
         public Nodo termino()
         {
             Nodo temp = signoFactor();
-            while ((tokenActual.getLexema() == "*") || (tokenActual.getLexema() == "/"))
+            while (tokenActual.getTipoToken() == token.Type.MULTIPLICACION || tokenActual.getTipoToken() == token.Type.DIVISION)
             {
                 Nodo nuevo = multOp();
                 nuevo.hijos[0] = temp;
@@ -460,13 +479,13 @@ namespace ProyectoCompiladores_IDE
         public Nodo multOp()
         {
             Nodo temp = new Nodo(tokenActual);
-            switch (tokenActual.getLexema())
+            switch (tokenActual.getTipoToken())
             {
-                case "*":
-                    comprobar("*");
+                case token.Type.MULTIPLICACION:
+                    comprobar(token.Type.MULTIPLICACION);
                     break;
-                case "/":
-                    comprobar("/");
+                case token.Type.DIVISION:
+                    comprobar(token.Type.DIVISION);
                     break;
                 default:
                     //error
@@ -479,7 +498,7 @@ namespace ProyectoCompiladores_IDE
         public Nodo signoFactor()
         {
             Nodo temp = null;
-            if ((tokenActual.getLexema() == "+") || (tokenActual.getLexema() == "-"))
+            if (tokenActual.getTipoToken() == token.Type.SUMA || tokenActual.getTipoToken() == token.Type.RESTA)
             {
                 temp = sumaOp();
                 temp.hijos[0] = factor();
@@ -495,35 +514,38 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo temp = new Nodo();
           
-            switch (tokenActual.getIdToken())
+            switch (tokenActual.getTipoToken())
             {
-                case "(":
-                    comprobar("(");
+                case token.Type.LPAREN:
+                    comprobar(token.Type.LPAREN);
                     temp = bexpresion();
-                    comprobar(")");
+                    comprobar(token.Type.RPAREN);
                     break;
-                case "ID":
+                case token.Type.ID:
                     temp = new Nodo(tokenActual);
-                    comprobar("ID");
+                    comprobar(token.Type.ID);
                     break;
-                case "NUM":
+                case token.Type.NUM:
                     temp = new Nodo(tokenActual);
-                    comprobar("NUM");
+                    comprobar(token.Type.NUM);
                     break;
                 default:
-                    if (tokenActual.getLexema() == "(")
-                    {
-                        comprobar("(");
-                        temp = bexpresion();
-                        comprobar(")");
-                    }
-                    else
-                        //Console.WriteLine("Error");
-                        errores.Add(tokenActual);
-                    //Error
+                    errores.Add(tokenActual);
                     break;
             }
             return temp;
+        }
+
+        private void ImprimirArbol(Nodo nodo)
+        {
+            if(nodo != null)
+            {
+                nodosArbol += $"Linea:{nodo.getLinea()}, Lexema:{nodo.getLexema()}, Token:{nodo.getTipoToken()}, Tipo:{nodo.getTipoDato()}" + Environment.NewLine; ;
+                ImprimirArbol(nodo.hijos[0]);
+                ImprimirArbol(nodo.hijos[1]);
+                ImprimirArbol(nodo.hijos[2]);
+                ImprimirArbol(nodo.hermano);
+            }
         }
     }
 }
