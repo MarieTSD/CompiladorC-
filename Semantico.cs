@@ -49,6 +49,7 @@ namespace ProyectoCompiladores_IDE
                 else if (n.hijos[0].getTipoDato() != n.hijos[1].getTipoDato())
                 {
                     TypeError(n, "Tipos de dato no coinciden");
+                    n.setTipoDato(token.DataType.ERROR);
                     n.hijos[0].setTipoDato(token.DataType.ERROR);
                     if (Symtab.BuscarVariable(n.hijos[0]))
                         Symtab.ActualizarVariable(n.hijos[0]);
@@ -57,6 +58,7 @@ namespace ProyectoCompiladores_IDE
                 }
                 else
                 {
+                    n.setTipoDato(n.hijos[0].getTipoDato());
                     if (Symtab.BuscarVariable(n.hijos[0]))
                         Symtab.ActualizarVariable(n.hijos[0]);
                     else
@@ -64,10 +66,23 @@ namespace ProyectoCompiladores_IDE
                 }
             }
 
-            if(n.getTipoToken() == token.Type.SUMA || n.getTipoToken() == token.Type.RESTA || 
+            if (n.getTipoToken() == token.Type.WRITE)
+            {
+                n.setTipoDato(n.hijos[0].getTipoDato());
+                if(n.hijos[0].getTipoToken() == token.Type.ID)
+                {
+                    if (Symtab.BuscarVariable(n.hijos[0]))
+                        Symtab.ActualizarVariable(n.hijos[0]);
+                    else
+                        Symtab.AñadirVariable(n.hijos[0]);
+                }
+            }
+
+            if (n.getTipoToken() == token.Type.SUMA || n.getTipoToken() == token.Type.RESTA || 
                 n.getTipoToken() == token.Type.MULTIPLICACION || n.getTipoToken() == token.Type.DIVISION)
             {
-                if(n.hijos[0].getTipoToken() == token.Type.NUM && n.hijos[1].getTipoToken() == token.Type.NUM)
+                if (!(n.hijos[0].getTipoDato() == token.DataType.INTEGER || n.hijos[0].getTipoDato() == token.DataType.REAL &&
+                      n.hijos[1].getTipoDato() == token.DataType.INTEGER || n.hijos[1].getTipoDato() == token.DataType.REAL))
                 {
                     TypeError(n, "Operacion no valida");
                     n.setTipoDato(token.DataType.ERROR);
@@ -87,7 +102,8 @@ namespace ProyectoCompiladores_IDE
                 n.getTipoToken() == token.Type.MENOR_IGUAL || n.getTipoToken() == token.Type.MENOR_QUE ||
                 n.getTipoToken() == token.Type.IGUALDAD || n.getTipoToken() == token.Type.DESIGUALDAD)
             {
-                if (n.hijos[0].getTipoToken() == token.Type.NUM && n.hijos[1].getTipoToken() == token.Type.NUM)
+                if (!(n.hijos[0].getTipoDato() == token.DataType.INTEGER || n.hijos[0].getTipoDato() == token.DataType.REAL &&
+                      n.hijos[1].getTipoDato() == token.DataType.INTEGER || n.hijos[1].getTipoDato() == token.DataType.REAL))
                 {
                     TypeError(n, "Operacion no valida");
                     n.setTipoDato(token.DataType.ERROR);
