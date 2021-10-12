@@ -239,14 +239,30 @@ namespace ProyectoCompiladores_IDE
             Nodo temp = new Nodo(tokenActual);
             comprobar(token.Type.IF);
             comprobar(token.Type.LPAREN);
-            temp.hijos[0] = bexpresion();
+
+            Nodo condicion = new Nodo();
+            condicion.setLexema("Condicion");
+            condicion.setLinea(tokenActual.getLinea());
+            condicion.setTipoToken(token.Type.CONDICION);
+
+            temp.hijos[0] = condicion;
+            condicion.hijos[0] = bexpresion();
+
             comprobar(token.Type.RPAREN);
+
+            Nodo then = new Nodo(tokenActual);
             comprobar(token.Type.THEN);
-            temp.hijos[1] = bloque();
+
+
+            temp.hijos[1] = then;
+            then.hijos[0] = bloque();
+
             if (tokenActual.getTipoToken() == token.Type.ELSE)
             {
+                Nodo n_else = new Nodo(tokenActual);
                 comprobar(token.Type.ELSE);
-                temp.hijos[2] = bloque();
+                temp.hijos[2] = n_else;
+                n_else.hijos[0] = bloque();
             }
             comprobar(token.Type.FI);
             return temp;

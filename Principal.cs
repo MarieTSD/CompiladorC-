@@ -331,7 +331,7 @@ namespace ProyectoCompiladores_IDE
                 //ErroresTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
                 Semantico.InsertarId(arbol);
                 Semantico.TypeCheck(arbol);
-                ResulTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
+                //ResulTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
 
 
                 //Arbol es el que utilizamos para enviarlo al TreeView
@@ -342,6 +342,7 @@ namespace ProyectoCompiladores_IDE
                 CrearTreeview(null, auxSintactico, arbol);
                 CrearTreeviewAtrib(null, auxSemantico, arbol); 
                 ErroresTextBox.Text += analizadorSintactico.erroresSintacticos() + Semantico.GetErroresSemantico();
+                ResulTextBox.Text = Symtab.GetSymtab();
             }
 
 

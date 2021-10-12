@@ -37,6 +37,8 @@ namespace ProyectoCompiladores_IDE
             this.LexicoTextBox = new System.Windows.Forms.RichTextBox();
             this.tabSintactico = new System.Windows.Forms.TabPage();
             this.arbolSintactico = new System.Windows.Forms.TreeView();
+            this.tabSemantico = new System.Windows.Forms.TabPage();
+            this.arbolSemantico = new System.Windows.Forms.TreeView();
             this.tabCod_Intermd = new System.Windows.Forms.TabPage();
             this.Resultados = new System.Windows.Forms.TabControl();
             this.tabErrores = new System.Windows.Forms.TabPage();
@@ -66,18 +68,16 @@ namespace ProyectoCompiladores_IDE
             this.guardar = new System.Windows.Forms.SaveFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tabSemantico = new System.Windows.Forms.TabPage();
-            this.arbolSemantico = new System.Windows.Forms.TreeView();
             this.Pestañas.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintactico.SuspendLayout();
+            this.tabSemantico.SuspendLayout();
             this.Resultados.SuspendLayout();
             this.tabErrores.SuspendLayout();
             this.tabResultados.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabSemantico.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -156,11 +156,30 @@ namespace ProyectoCompiladores_IDE
             // 
             // arbolSintactico
             // 
-            this.arbolSintactico.Location = new System.Drawing.Point(8, 6);
-            this.arbolSintactico.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.arbolSintactico.Location = new System.Drawing.Point(1, 0);
+            this.arbolSintactico.Margin = new System.Windows.Forms.Padding(4);
             this.arbolSintactico.Name = "arbolSintactico";
-            this.arbolSintactico.Size = new System.Drawing.Size(389, 408);
+            this.arbolSintactico.Size = new System.Drawing.Size(400, 418);
             this.arbolSintactico.TabIndex = 0;
+            // 
+            // tabSemantico
+            // 
+            this.tabSemantico.Controls.Add(this.arbolSemantico);
+            this.tabSemantico.Location = new System.Drawing.Point(4, 24);
+            this.tabSemantico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabSemantico.Name = "tabSemantico";
+            this.tabSemantico.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabSemantico.Size = new System.Drawing.Size(401, 418);
+            this.tabSemantico.TabIndex = 2;
+            this.tabSemantico.Text = "Semantico";
+            this.tabSemantico.UseVisualStyleBackColor = true;
+            // 
+            // arbolSemantico
+            // 
+            this.arbolSemantico.Location = new System.Drawing.Point(0, 0);
+            this.arbolSemantico.Name = "arbolSemantico";
+            this.arbolSemantico.Size = new System.Drawing.Size(398, 415);
+            this.arbolSemantico.TabIndex = 0;
             // 
             // tabCod_Intermd
             // 
@@ -430,25 +449,6 @@ namespace ProyectoCompiladores_IDE
             this.panel2.Size = new System.Drawing.Size(1040, 165);
             this.panel2.TabIndex = 8;
             // 
-            // tabSemantico
-            // 
-            this.tabSemantico.Controls.Add(this.arbolSemantico);
-            this.tabSemantico.Location = new System.Drawing.Point(4, 24);
-            this.tabSemantico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabSemantico.Name = "tabSemantico";
-            this.tabSemantico.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabSemantico.Size = new System.Drawing.Size(401, 418);
-            this.tabSemantico.TabIndex = 2;
-            this.tabSemantico.Text = "Semantico";
-            this.tabSemantico.UseVisualStyleBackColor = true;
-            // 
-            // arbolSemantico
-            // 
-            this.arbolSemantico.Location = new System.Drawing.Point(0, 0);
-            this.arbolSemantico.Name = "arbolSemantico";
-            this.arbolSemantico.Size = new System.Drawing.Size(398, 415);
-            this.arbolSemantico.TabIndex = 0;
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -469,6 +469,7 @@ namespace ProyectoCompiladores_IDE
             this.Pestañas.ResumeLayout(false);
             this.tabLexico.ResumeLayout(false);
             this.tabSintactico.ResumeLayout(false);
+            this.tabSemantico.ResumeLayout(false);
             this.Resultados.ResumeLayout(false);
             this.tabErrores.ResumeLayout(false);
             this.tabResultados.ResumeLayout(false);
@@ -476,7 +477,6 @@ namespace ProyectoCompiladores_IDE
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.tabSemantico.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

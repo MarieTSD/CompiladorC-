@@ -41,7 +41,7 @@ namespace ProyectoCompiladores_IDE
         {
             Variable temp = tabla[var.getLexema()];
             temp.linea = var.getLinea();
-            temp.tipo = var.getTipoDato();
+            //temp.tipo = var.getTipoDato();
             tabla[var.getLexema()] = temp;
         }
 
@@ -65,6 +65,18 @@ namespace ProyectoCompiladores_IDE
             }
 
             return lista;
+        }
+
+        public static String GetSymtab()
+        {
+            String aux = "";
+
+            foreach(KeyValuePair<string,Variable> pair in tabla)
+            {
+                aux += $"Key = {pair.Key}, Linea = {pair.Value.linea}, Tipo = {pair.Value.tipo}" + Environment.NewLine;
+            }
+
+            return aux;
         }
     }
 }
