@@ -16,7 +16,7 @@ namespace ProyectoCompiladores_IDE
         }
 
         public static List<string> errores = new List<string>();
-
+        public static List<string> tablaS = new List<string>();
         private static Dictionary<string, Variable> tabla = new Dictionary<string, Variable>();
 
         public static void AñadirVariable(Nodo var)
@@ -25,16 +25,26 @@ namespace ProyectoCompiladores_IDE
             x.nombre = var.getLexema();
             x.linea = var.getLinea();
             x.tipo = var.getTipoDato();
-
-            try
+            if (!BuscarVariable(var))
             {
                 tabla.Add(var.getLexema(), x);
+                tablaS.Add(var.getLexema() + "/" + var.getLinea() + "/" + var.getTipoDato().ToString());
             }
-            catch
+            else
             {
+               // Console.WriteLine($"Var = {var.getLexema()} no añadida\t");
                 errores.Add($"La llave {var.getLexema()} ya se encuentra en la tabla");
-;
             }
+
+            /* try
+             {
+                 tabla.Add(var.getLexema(), x);
+             }
+             catch
+             {
+                 errores.Add($"La llave {var.getLexema()} ya se encuentra en la tabla");
+ ;
+             }*/
         }
 
         public static void ActualizarVariable(Nodo var)
@@ -49,7 +59,10 @@ namespace ProyectoCompiladores_IDE
         {
             return tabla.ContainsKey(var.getLexema());
         }
-
+        public static List<string> tablaSi()
+        {
+            return tablaS;
+        }
         public static Variable GetVariable(Nodo var)
         {
             return tabla[var.getLexema()];

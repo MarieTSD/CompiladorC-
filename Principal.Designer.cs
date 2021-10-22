@@ -68,6 +68,11 @@ namespace ProyectoCompiladores_IDE
             this.guardar = new System.Windows.Forms.SaveFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Variable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Linea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pestañas.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintactico.SuspendLayout();
@@ -78,26 +83,29 @@ namespace ProyectoCompiladores_IDE
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 39);
+            this.label1.Location = new System.Drawing.Point(9, 32);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 20);
+            this.label1.Size = new System.Drawing.Size(123, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Codigo a Compilar";
             // 
             // cuadro
             // 
             this.cuadro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cuadro.Location = new System.Drawing.Point(12, 62);
-            this.cuadro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cuadro.Location = new System.Drawing.Point(9, 50);
+            this.cuadro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cuadro.Name = "cuadro";
             this.cuadro.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.cuadro.Size = new System.Drawing.Size(593, 448);
+            this.cuadro.Size = new System.Drawing.Size(446, 365);
             this.cuadro.TabIndex = 3;
             this.cuadro.Text = "";
             this.cuadro.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Cambio_Texto);
@@ -108,23 +116,24 @@ namespace ProyectoCompiladores_IDE
             this.Pestañas.Controls.Add(this.tabSintactico);
             this.Pestañas.Controls.Add(this.tabSemantico);
             this.Pestañas.Controls.Add(this.tabCod_Intermd);
+            this.Pestañas.Controls.Add(this.tabPage1);
             this.Pestañas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pestañas.ItemSize = new System.Drawing.Size(61, 20);
-            this.Pestañas.Location = new System.Drawing.Point(12, 38);
-            this.Pestañas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Pestañas.Location = new System.Drawing.Point(9, 31);
+            this.Pestañas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Pestañas.Name = "Pestañas";
             this.Pestañas.SelectedIndex = 0;
-            this.Pestañas.Size = new System.Drawing.Size(409, 446);
+            this.Pestañas.Size = new System.Drawing.Size(307, 362);
             this.Pestañas.TabIndex = 4;
             // 
             // tabLexico
             // 
             this.tabLexico.Controls.Add(this.LexicoTextBox);
             this.tabLexico.Location = new System.Drawing.Point(4, 24);
-            this.tabLexico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabLexico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabLexico.Name = "tabLexico";
-            this.tabLexico.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabLexico.Size = new System.Drawing.Size(401, 418);
+            this.tabLexico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabLexico.Size = new System.Drawing.Size(299, 334);
             this.tabLexico.TabIndex = 0;
             this.tabLexico.Text = "Lexico";
             this.tabLexico.UseVisualStyleBackColor = true;
@@ -133,11 +142,11 @@ namespace ProyectoCompiladores_IDE
             // 
             this.LexicoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LexicoTextBox.Location = new System.Drawing.Point(0, 0);
-            this.LexicoTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LexicoTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LexicoTextBox.Name = "LexicoTextBox";
             this.LexicoTextBox.ReadOnly = true;
             this.LexicoTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LexicoTextBox.Size = new System.Drawing.Size(392, 434);
+            this.LexicoTextBox.Size = new System.Drawing.Size(295, 353);
             this.LexicoTextBox.TabIndex = 0;
             this.LexicoTextBox.Text = "";
             // 
@@ -145,10 +154,10 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabSintactico.Controls.Add(this.arbolSintactico);
             this.tabSintactico.Location = new System.Drawing.Point(4, 24);
-            this.tabSintactico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabSintactico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabSintactico.Name = "tabSintactico";
-            this.tabSintactico.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabSintactico.Size = new System.Drawing.Size(401, 418);
+            this.tabSintactico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSintactico.Size = new System.Drawing.Size(299, 334);
             this.tabSintactico.TabIndex = 1;
             this.tabSintactico.Text = "Sintactico";
             this.tabSintactico.UseVisualStyleBackColor = true;
@@ -157,19 +166,18 @@ namespace ProyectoCompiladores_IDE
             // arbolSintactico
             // 
             this.arbolSintactico.Location = new System.Drawing.Point(1, 0);
-            this.arbolSintactico.Margin = new System.Windows.Forms.Padding(4);
             this.arbolSintactico.Name = "arbolSintactico";
-            this.arbolSintactico.Size = new System.Drawing.Size(400, 418);
+            this.arbolSintactico.Size = new System.Drawing.Size(301, 340);
             this.arbolSintactico.TabIndex = 0;
             // 
             // tabSemantico
             // 
             this.tabSemantico.Controls.Add(this.arbolSemantico);
             this.tabSemantico.Location = new System.Drawing.Point(4, 24);
-            this.tabSemantico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabSemantico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabSemantico.Name = "tabSemantico";
-            this.tabSemantico.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabSemantico.Size = new System.Drawing.Size(401, 418);
+            this.tabSemantico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSemantico.Size = new System.Drawing.Size(299, 334);
             this.tabSemantico.TabIndex = 2;
             this.tabSemantico.Text = "Semantico";
             this.tabSemantico.UseVisualStyleBackColor = true;
@@ -177,17 +185,18 @@ namespace ProyectoCompiladores_IDE
             // arbolSemantico
             // 
             this.arbolSemantico.Location = new System.Drawing.Point(0, 0);
+            this.arbolSemantico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.arbolSemantico.Name = "arbolSemantico";
-            this.arbolSemantico.Size = new System.Drawing.Size(398, 415);
+            this.arbolSemantico.Size = new System.Drawing.Size(300, 338);
             this.arbolSemantico.TabIndex = 0;
             // 
             // tabCod_Intermd
             // 
             this.tabCod_Intermd.Location = new System.Drawing.Point(4, 24);
-            this.tabCod_Intermd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabCod_Intermd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabCod_Intermd.Name = "tabCod_Intermd";
-            this.tabCod_Intermd.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabCod_Intermd.Size = new System.Drawing.Size(401, 418);
+            this.tabCod_Intermd.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabCod_Intermd.Size = new System.Drawing.Size(299, 334);
             this.tabCod_Intermd.TabIndex = 3;
             this.tabCod_Intermd.Text = "Codigo Intermedio";
             this.tabCod_Intermd.UseVisualStyleBackColor = true;
@@ -197,21 +206,21 @@ namespace ProyectoCompiladores_IDE
             this.Resultados.Controls.Add(this.tabErrores);
             this.Resultados.Controls.Add(this.tabResultados);
             this.Resultados.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Resultados.Location = new System.Drawing.Point(13, 12);
-            this.Resultados.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Resultados.Location = new System.Drawing.Point(10, 10);
+            this.Resultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Resultados.Name = "Resultados";
             this.Resultados.SelectedIndex = 0;
-            this.Resultados.Size = new System.Drawing.Size(1008, 142);
+            this.Resultados.Size = new System.Drawing.Size(756, 115);
             this.Resultados.TabIndex = 5;
             // 
             // tabErrores
             // 
             this.tabErrores.Controls.Add(this.ErroresTextBox);
-            this.tabErrores.Location = new System.Drawing.Point(4, 29);
-            this.tabErrores.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabErrores.Location = new System.Drawing.Point(4, 26);
+            this.tabErrores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabErrores.Name = "tabErrores";
-            this.tabErrores.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabErrores.Size = new System.Drawing.Size(1000, 109);
+            this.tabErrores.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabErrores.Size = new System.Drawing.Size(748, 85);
             this.tabErrores.TabIndex = 0;
             this.tabErrores.Text = "Errores";
             this.tabErrores.UseVisualStyleBackColor = true;
@@ -220,22 +229,22 @@ namespace ProyectoCompiladores_IDE
             // 
             this.ErroresTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErroresTextBox.Location = new System.Drawing.Point(0, 0);
-            this.ErroresTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ErroresTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ErroresTextBox.Name = "ErroresTextBox";
             this.ErroresTextBox.ReadOnly = true;
             this.ErroresTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.ErroresTextBox.Size = new System.Drawing.Size(997, 114);
+            this.ErroresTextBox.Size = new System.Drawing.Size(749, 93);
             this.ErroresTextBox.TabIndex = 0;
             this.ErroresTextBox.Text = "";
             // 
             // tabResultados
             // 
             this.tabResultados.Controls.Add(this.ResulTextBox);
-            this.tabResultados.Location = new System.Drawing.Point(4, 29);
-            this.tabResultados.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabResultados.Location = new System.Drawing.Point(4, 26);
+            this.tabResultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabResultados.Name = "tabResultados";
-            this.tabResultados.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabResultados.Size = new System.Drawing.Size(1000, 109);
+            this.tabResultados.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabResultados.Size = new System.Drawing.Size(748, 85);
             this.tabResultados.TabIndex = 1;
             this.tabResultados.Text = "Resultados";
             this.tabResultados.UseVisualStyleBackColor = true;
@@ -243,11 +252,11 @@ namespace ProyectoCompiladores_IDE
             // ResulTextBox
             // 
             this.ResulTextBox.Location = new System.Drawing.Point(0, 0);
-            this.ResulTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ResulTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ResulTextBox.Name = "ResulTextBox";
             this.ResulTextBox.ReadOnly = true;
             this.ResulTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.ResulTextBox.Size = new System.Drawing.Size(997, 114);
+            this.ResulTextBox.Size = new System.Drawing.Size(749, 93);
             this.ResulTextBox.TabIndex = 0;
             this.ResulTextBox.Text = "";
             // 
@@ -267,7 +276,7 @@ namespace ProyectoCompiladores_IDE
             this.toolStripButton4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1035, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(776, 26);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -282,14 +291,14 @@ namespace ProyectoCompiladores_IDE
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(81, 27);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 23);
             this.toolStripDropDownButton1.Text = "Archivo";
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._62319;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(273, 28);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.abrirToolStripMenuItem.Text = "Abrir Ctrl + O";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.ClickBoton_ArchivoAbrir);
             // 
@@ -297,7 +306,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.guardarToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._140_1408496_png_file_icono_de_guardar_png_clipart;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(273, 28);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.guardarToolStripMenuItem.Text = "Guardar Ctrl + S";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.ClickBoton_ArchivoGuardar);
             // 
@@ -305,7 +314,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.guardarComoToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._62124;
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(273, 28);
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.guardarComoToolStripMenuItem.Text = "Guardar Como Ctrl + G";
             this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.ClickBoton_ArchivoCerrar);
             // 
@@ -313,14 +322,14 @@ namespace ProyectoCompiladores_IDE
             // 
             this.cerrarCtrlXToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources.cerrar_borrar_boton_eliminar_318_9073;
             this.cerrarCtrlXToolStripMenuItem.Name = "cerrarCtrlXToolStripMenuItem";
-            this.cerrarCtrlXToolStripMenuItem.Size = new System.Drawing.Size(273, 28);
+            this.cerrarCtrlXToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.cerrarCtrlXToolStripMenuItem.Text = "Cerrar Ctrl + X";
             this.cerrarCtrlXToolStripMenuItem.Click += new System.EventHandler(this.cerrarCtrlXToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
             // 
             // toolStripDropDownButton2
             // 
@@ -334,14 +343,14 @@ namespace ProyectoCompiladores_IDE
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(68, 27);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(57, 23);
             this.toolStripDropDownButton2.Text = "Editar";
             // 
             // copiarToolStripMenuItem
             // 
             this.copiarToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._32565;
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(291, 28);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.copiarToolStripMenuItem.Text = "Copiar Ctrl + C";
             this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
             // 
@@ -349,7 +358,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.pegarToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._84340;
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(291, 28);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.pegarToolStripMenuItem.Text = "Pegar Ctrl + V";
             this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
             // 
@@ -357,7 +366,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.cortarToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._2129819;
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(291, 28);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.cortarToolStripMenuItem.Text = "Cortar Ctrl + D";
             this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
@@ -365,7 +374,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.unToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources.kisspng_computer_icons_icon_design_undo_download_curve_5abbc5b5d0c494_4762120115222552858551;
             this.unToolStripMenuItem.Name = "unToolStripMenuItem";
-            this.unToolStripMenuItem.Size = new System.Drawing.Size(291, 28);
+            this.unToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.unToolStripMenuItem.Text = "Deshacer Ctrl + U";
             this.unToolStripMenuItem.Click += new System.EventHandler(this.unToolStripMenuItem_Click);
             // 
@@ -373,14 +382,14 @@ namespace ProyectoCompiladores_IDE
             // 
             this.seleccionarTodoToolStripMenuItem.Image = global::ProyectoCompiladores_IDE.Properties.Resources._565339;
             this.seleccionarTodoToolStripMenuItem.Name = "seleccionarTodoToolStripMenuItem";
-            this.seleccionarTodoToolStripMenuItem.Size = new System.Drawing.Size(291, 28);
+            this.seleccionarTodoToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.seleccionarTodoToolStripMenuItem.Text = "Seleccionar todo  Ctrl + A";
             this.seleccionarTodoToolStripMenuItem.Click += new System.EventHandler(this.seleccionarTodoToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
             // 
             // toolStripButton2
             // 
@@ -388,13 +397,13 @@ namespace ProyectoCompiladores_IDE
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(78, 27);
+            this.toolStripButton2.Size = new System.Drawing.Size(65, 23);
             this.toolStripButton2.Text = "Formato";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
             // 
             // toolStripButton3
             // 
@@ -402,14 +411,14 @@ namespace ProyectoCompiladores_IDE
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(83, 27);
+            this.toolStripButton3.Size = new System.Drawing.Size(68, 23);
             this.toolStripButton3.Text = "Compilar";
             this.toolStripButton3.Click += new System.EventHandler(this.Click_compilar);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
             // 
             // toolStripButton4
             // 
@@ -417,7 +426,7 @@ namespace ProyectoCompiladores_IDE
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(62, 27);
+            this.toolStripButton4.Size = new System.Drawing.Size(52, 23);
             this.toolStripButton4.Text = "Ayuda";
             // 
             // openFileDialog1
@@ -433,28 +442,66 @@ namespace ProyectoCompiladores_IDE
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.Pestañas);
-            this.panel1.Location = new System.Drawing.Point(611, 25);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Location = new System.Drawing.Point(458, 20);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(424, 498);
+            this.panel1.Size = new System.Drawing.Size(318, 405);
             this.panel1.TabIndex = 7;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel2.Controls.Add(this.Resultados);
-            this.panel2.Location = new System.Drawing.Point(0, 514);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel2.Location = new System.Drawing.Point(0, 418);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1040, 165);
+            this.panel2.Size = new System.Drawing.Size(780, 134);
             this.panel2.TabIndex = 8;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(299, 334);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Tabla simbolos";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Variable,
+            this.Tipo,
+            this.Linea});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(290, 190);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Variable
+            // 
+            this.Variable.HeaderText = "Variable";
+            this.Variable.Name = "Variable";
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.Name = "Tipo";
+            // 
+            // Linea
+            // 
+            this.Linea.HeaderText = "Linea";
+            this.Linea.Name = "Linea";
             // 
             // Principal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(1035, 683);
+            this.ClientSize = new System.Drawing.Size(776, 555);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -462,7 +509,7 @@ namespace ProyectoCompiladores_IDE
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Principal";
             this.Text = "Compilador";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Principal_KeyUp);
@@ -477,6 +524,8 @@ namespace ProyectoCompiladores_IDE
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,6 +570,11 @@ namespace ProyectoCompiladores_IDE
         private System.Windows.Forms.TreeView arbolSintactico;
         private System.Windows.Forms.TabPage tabSemantico;
         private System.Windows.Forms.TreeView arbolSemantico;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Variable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Linea;
     }
 }
 

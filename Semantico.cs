@@ -9,7 +9,10 @@ namespace ProyectoCompiladores_IDE
     class Semantico
     {
         private static List<string> errores = new List<string>();
-
+        private static List<string> tablaSin = new List<string>();
+        static private List<String> listaIntFloat = new List<string>();
+        static private List<String> temporal = new List<string>();
+        public static Boolean bandera = false;
         private static void TypeError(Nodo n, string msg)
         {
             errores.Add($"Error de tipo en linea {n.getLinea()}: {msg}");
@@ -68,8 +71,19 @@ namespace ProyectoCompiladores_IDE
 
             if (n.getTipoToken() == token.Type.WRITE)
             {
-                n.setTipoDato(n.hijos[0].getTipoDato());
-                if(n.hijos[0].getTipoToken() == token.Type.ID)
+                //n.setTipoDato(n.hijos[0].getTipoDato());
+                bandera = true;
+                temporal.Clear();
+                Recursivo(n);
+                if (temporal.Contains("REAL") || temporal.Contains("/"))
+                {
+                    n.setTipoDato(token.DataType.REAL);
+                }
+                else
+                {
+                    n.setTipoDato(token.DataType.INTEGER);
+                }
+                if (n.hijos[0].getTipoToken() == token.Type.ID)
                 {
                     if (Symtab.BuscarVariable(n.hijos[0]))
                         Symtab.ActualizarVariable(n.hijos[0]);
@@ -90,7 +104,8 @@ namespace ProyectoCompiladores_IDE
                 else if(n.hijos[0].getTipoDato() != n.hijos[1].getTipoDato())
                 {
                     TypeError(n, "Tipos de dato no coinciden");
-                    n.setTipoDato(token.DataType.ERROR);
+                    n.setTipoDato(token.DataType.REAL);
+                    //n.setTipoDato(token.DataType.ERROR);
                 }
                 else
                 {
@@ -128,16 +143,44 @@ namespace ProyectoCompiladores_IDE
             n.setTipoDato(aux.tipo);
             return n;
         }
+        public static List<string> tablaSi()
+        {
+            tablaSin = Symtab.tablaSi();
+            return tablaSin;
+        }
 
         public static String GetErroresSemantico()
         {
             String aux = "";
-            foreach(String err in errores)
+            foreach (String err in Symtab.errores)
+            {
+                aux += err + Environment.NewLine;
+            }
+            foreach (String err in errores)
             {
                 aux += err + Environment.NewLine;
             }
 
             return aux;
+        }
+        public static void Recursivo(Nodo nodo)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (nodo.hijos[i] != null)
+                {
+                    if (nodo.hijos[i].getTipoDato() == token.DataType.REAL || (nodo.hijos[i].getTipoDato() == token.DataType.INTEGER) ||
+                        (nodo.hijos[i].getLexema() == "/"))
+                    {
+                        temporal.Add(nodo.hijos[i].getTipoDato().ToString());
+                        //Console.WriteLine( "hermano: "+nodo.hijos[i].getTipoDato().ToString() +" val" + nodo.hijos[i].getLexema());
+                    }
+
+                    Recursivo(nodo.hijos[i]);
+                }
+                else
+                    break;
+            }
         }
     }
 }

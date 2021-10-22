@@ -16,7 +16,7 @@ namespace ProyectoCompiladores_IDE
     public partial class Principal : Form
     {
         string rutaArchivo;
-
+        private static List<string> tablaSin = new List<string>();
         Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|then|else|fi|do|until|while|read|write|#.*");
         Regex otro_rx = new Regex(@"<.*>|\"".*\""");
         public Principal()
@@ -343,6 +343,9 @@ namespace ProyectoCompiladores_IDE
                 CrearTreeviewAtrib(null, auxSemantico, arbol); 
                 ErroresTextBox.Text += analizadorSintactico.erroresSintacticos() + Semantico.GetErroresSemantico();
                 ResulTextBox.Text = Symtab.GetSymtab();
+                //Semantico.TablaSemantico();
+                tablaSin = Semantico.tablaSi();
+                MostrarTabla();
             }
 
 
@@ -422,7 +425,19 @@ namespace ProyectoCompiladores_IDE
                 return proc.StandardOutput.ReadToEnd(); //Devuelve el resultado 
                 
         }
-
+        void MostrarTabla()
+        {
+            for (int i = 0; i < tablaSin.Count; i++)
+            {
+                String[] lista;
+                lista = tablaSin.ElementAt(i).Split('/');
+                int n = dataGridView1.Rows.Add();
+                dataGridView1.Rows[n].Cells[0].Value = lista[0];
+                dataGridView1.Rows[n].Cells[1].Value = lista[2];
+                dataGridView1.Rows[n].Cells[2].Value = lista[1];
+                //Console.WriteLine(tablaSin.ElementAt(i) + "\n");
+            }
+        }
         private void tabSintactico_Click(object sender, EventArgs e)
         {
 
