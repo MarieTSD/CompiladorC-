@@ -40,6 +40,11 @@ namespace ProyectoCompiladores_IDE
             this.tabSemantico = new System.Windows.Forms.TabPage();
             this.arbolSemantico = new System.Windows.Forms.TreeView();
             this.tabCod_Intermd = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Variable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Linea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resultados = new System.Windows.Forms.TabControl();
             this.tabErrores = new System.Windows.Forms.TabPage();
             this.ErroresTextBox = new System.Windows.Forms.RichTextBox();
@@ -68,23 +73,20 @@ namespace ProyectoCompiladores_IDE
             this.guardar = new System.Windows.Forms.SaveFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Variable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Linea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codigointermedio = new System.Windows.Forms.RichTextBox();
             this.Pestañas.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintactico.SuspendLayout();
             this.tabSemantico.SuspendLayout();
+            this.tabCod_Intermd.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.Resultados.SuspendLayout();
             this.tabErrores.SuspendLayout();
             this.tabResultados.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,7 +104,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.cuadro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cuadro.Location = new System.Drawing.Point(9, 50);
-            this.cuadro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cuadro.Margin = new System.Windows.Forms.Padding(2);
             this.cuadro.Name = "cuadro";
             this.cuadro.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.cuadro.Size = new System.Drawing.Size(446, 365);
@@ -120,7 +122,7 @@ namespace ProyectoCompiladores_IDE
             this.Pestañas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pestañas.ItemSize = new System.Drawing.Size(61, 20);
             this.Pestañas.Location = new System.Drawing.Point(9, 31);
-            this.Pestañas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Pestañas.Margin = new System.Windows.Forms.Padding(2);
             this.Pestañas.Name = "Pestañas";
             this.Pestañas.SelectedIndex = 0;
             this.Pestañas.Size = new System.Drawing.Size(307, 362);
@@ -130,9 +132,9 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabLexico.Controls.Add(this.LexicoTextBox);
             this.tabLexico.Location = new System.Drawing.Point(4, 24);
-            this.tabLexico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabLexico.Margin = new System.Windows.Forms.Padding(2);
             this.tabLexico.Name = "tabLexico";
-            this.tabLexico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabLexico.Padding = new System.Windows.Forms.Padding(2);
             this.tabLexico.Size = new System.Drawing.Size(299, 334);
             this.tabLexico.TabIndex = 0;
             this.tabLexico.Text = "Lexico";
@@ -142,7 +144,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.LexicoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LexicoTextBox.Location = new System.Drawing.Point(0, 0);
-            this.LexicoTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LexicoTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.LexicoTextBox.Name = "LexicoTextBox";
             this.LexicoTextBox.ReadOnly = true;
             this.LexicoTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
@@ -154,9 +156,9 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabSintactico.Controls.Add(this.arbolSintactico);
             this.tabSintactico.Location = new System.Drawing.Point(4, 24);
-            this.tabSintactico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSintactico.Margin = new System.Windows.Forms.Padding(2);
             this.tabSintactico.Name = "tabSintactico";
-            this.tabSintactico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSintactico.Padding = new System.Windows.Forms.Padding(2);
             this.tabSintactico.Size = new System.Drawing.Size(299, 334);
             this.tabSintactico.TabIndex = 1;
             this.tabSintactico.Text = "Sintactico";
@@ -174,9 +176,9 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabSemantico.Controls.Add(this.arbolSemantico);
             this.tabSemantico.Location = new System.Drawing.Point(4, 24);
-            this.tabSemantico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSemantico.Margin = new System.Windows.Forms.Padding(2);
             this.tabSemantico.Name = "tabSemantico";
-            this.tabSemantico.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabSemantico.Padding = new System.Windows.Forms.Padding(2);
             this.tabSemantico.Size = new System.Drawing.Size(299, 334);
             this.tabSemantico.TabIndex = 2;
             this.tabSemantico.Text = "Semantico";
@@ -185,21 +187,60 @@ namespace ProyectoCompiladores_IDE
             // arbolSemantico
             // 
             this.arbolSemantico.Location = new System.Drawing.Point(0, 0);
-            this.arbolSemantico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.arbolSemantico.Margin = new System.Windows.Forms.Padding(2);
             this.arbolSemantico.Name = "arbolSemantico";
             this.arbolSemantico.Size = new System.Drawing.Size(300, 338);
             this.arbolSemantico.TabIndex = 0;
             // 
             // tabCod_Intermd
             // 
+            this.tabCod_Intermd.Controls.Add(this.codigointermedio);
             this.tabCod_Intermd.Location = new System.Drawing.Point(4, 24);
-            this.tabCod_Intermd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabCod_Intermd.Margin = new System.Windows.Forms.Padding(2);
             this.tabCod_Intermd.Name = "tabCod_Intermd";
-            this.tabCod_Intermd.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabCod_Intermd.Padding = new System.Windows.Forms.Padding(2);
             this.tabCod_Intermd.Size = new System.Drawing.Size(299, 334);
             this.tabCod_Intermd.TabIndex = 3;
             this.tabCod_Intermd.Text = "Codigo Intermedio";
             this.tabCod_Intermd.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(299, 334);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Tabla simbolos";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Variable,
+            this.Tipo,
+            this.Linea});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(290, 190);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Variable
+            // 
+            this.Variable.HeaderText = "Variable";
+            this.Variable.Name = "Variable";
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.Name = "Tipo";
+            // 
+            // Linea
+            // 
+            this.Linea.HeaderText = "Linea";
+            this.Linea.Name = "Linea";
             // 
             // Resultados
             // 
@@ -207,7 +248,7 @@ namespace ProyectoCompiladores_IDE
             this.Resultados.Controls.Add(this.tabResultados);
             this.Resultados.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Resultados.Location = new System.Drawing.Point(10, 10);
-            this.Resultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Resultados.Margin = new System.Windows.Forms.Padding(2);
             this.Resultados.Name = "Resultados";
             this.Resultados.SelectedIndex = 0;
             this.Resultados.Size = new System.Drawing.Size(756, 115);
@@ -217,9 +258,9 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabErrores.Controls.Add(this.ErroresTextBox);
             this.tabErrores.Location = new System.Drawing.Point(4, 26);
-            this.tabErrores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabErrores.Margin = new System.Windows.Forms.Padding(2);
             this.tabErrores.Name = "tabErrores";
-            this.tabErrores.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabErrores.Padding = new System.Windows.Forms.Padding(2);
             this.tabErrores.Size = new System.Drawing.Size(748, 85);
             this.tabErrores.TabIndex = 0;
             this.tabErrores.Text = "Errores";
@@ -229,7 +270,7 @@ namespace ProyectoCompiladores_IDE
             // 
             this.ErroresTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErroresTextBox.Location = new System.Drawing.Point(0, 0);
-            this.ErroresTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ErroresTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.ErroresTextBox.Name = "ErroresTextBox";
             this.ErroresTextBox.ReadOnly = true;
             this.ErroresTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
@@ -241,9 +282,9 @@ namespace ProyectoCompiladores_IDE
             // 
             this.tabResultados.Controls.Add(this.ResulTextBox);
             this.tabResultados.Location = new System.Drawing.Point(4, 26);
-            this.tabResultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabResultados.Margin = new System.Windows.Forms.Padding(2);
             this.tabResultados.Name = "tabResultados";
-            this.tabResultados.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabResultados.Padding = new System.Windows.Forms.Padding(2);
             this.tabResultados.Size = new System.Drawing.Size(748, 85);
             this.tabResultados.TabIndex = 1;
             this.tabResultados.Text = "Resultados";
@@ -252,7 +293,7 @@ namespace ProyectoCompiladores_IDE
             // ResulTextBox
             // 
             this.ResulTextBox.Location = new System.Drawing.Point(0, 0);
-            this.ResulTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ResulTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.ResulTextBox.Name = "ResulTextBox";
             this.ResulTextBox.ReadOnly = true;
             this.ResulTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
@@ -443,7 +484,7 @@ namespace ProyectoCompiladores_IDE
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.Pestañas);
             this.panel1.Location = new System.Drawing.Point(458, 20);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(318, 405);
             this.panel1.TabIndex = 7;
@@ -453,48 +494,22 @@ namespace ProyectoCompiladores_IDE
             this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel2.Controls.Add(this.Resultados);
             this.panel2.Location = new System.Drawing.Point(0, 418);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(780, 134);
             this.panel2.TabIndex = 8;
             // 
-            // tabPage1
+            // codigointermedio
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(299, 334);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "Tabla simbolos";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Variable,
-            this.Tipo,
-            this.Linea});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 7);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(290, 190);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // Variable
-            // 
-            this.Variable.HeaderText = "Variable";
-            this.Variable.Name = "Variable";
-            // 
-            // Tipo
-            // 
-            this.Tipo.HeaderText = "Tipo";
-            this.Tipo.Name = "Tipo";
-            // 
-            // Linea
-            // 
-            this.Linea.HeaderText = "Linea";
-            this.Linea.Name = "Linea";
+            this.codigointermedio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codigointermedio.Location = new System.Drawing.Point(2, 0);
+            this.codigointermedio.Margin = new System.Windows.Forms.Padding(2);
+            this.codigointermedio.Name = "codigointermedio";
+            this.codigointermedio.ReadOnly = true;
+            this.codigointermedio.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.codigointermedio.Size = new System.Drawing.Size(295, 344);
+            this.codigointermedio.TabIndex = 1;
+            this.codigointermedio.Text = "";
             // 
             // Principal
             // 
@@ -509,7 +524,7 @@ namespace ProyectoCompiladores_IDE
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Principal";
             this.Text = "Compilador";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Principal_KeyUp);
@@ -517,6 +532,9 @@ namespace ProyectoCompiladores_IDE
             this.tabLexico.ResumeLayout(false);
             this.tabSintactico.ResumeLayout(false);
             this.tabSemantico.ResumeLayout(false);
+            this.tabCod_Intermd.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.Resultados.ResumeLayout(false);
             this.tabErrores.ResumeLayout(false);
             this.tabResultados.ResumeLayout(false);
@@ -524,8 +542,6 @@ namespace ProyectoCompiladores_IDE
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,6 +591,7 @@ namespace ProyectoCompiladores_IDE
         private System.Windows.Forms.DataGridViewTextBoxColumn Variable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Linea;
+        private System.Windows.Forms.RichTextBox codigointermedio;
     }
 }
 

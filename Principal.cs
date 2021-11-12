@@ -17,6 +17,7 @@ namespace ProyectoCompiladores_IDE
     {
         string rutaArchivo;
         private static List<string> tablaSin = new List<string>();
+        private List<String> resultadoCodigo = new List<String>();
         Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|then|else|fi|do|until|while|read|write|#.*");
         Regex otro_rx = new Regex(@"<.*>|\"".*\""");
         public Principal()
@@ -326,6 +327,8 @@ namespace ProyectoCompiladores_IDE
             if(analizador.tokensResultadosE() == null)
             {
                 Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
+                CodigoIntermedio CodigoInter = new CodigoIntermedio();
+                codigointermedio.Text = "";
                 Nodo arbol = new Nodo();
                 arbol = analizadorSintactico.arbolSintactico();
                 //ErroresTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
@@ -346,6 +349,14 @@ namespace ProyectoCompiladores_IDE
                 //Semantico.TablaSemantico();
                 tablaSin = Semantico.tablaSi();
                 MostrarTabla();
+                CodigoInter.CrearCodigoInter(null, auxSemantico, arbol);
+                resultadoCodigo = CodigoInter.extraerResultados();
+                for (int i = 0; i < resultadoCodigo.Count; i++)
+                {
+                    String actual = resultadoCodigo.ElementAt(i);
+                    codigointermedio.Text += actual + "\n";
+                }
+
             }
 
 

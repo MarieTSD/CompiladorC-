@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodigoIntermedio.cs" />
     <Compile Include="lexico.cs" />
     <Compile Include="Nodo.cs" />
     <Compile Include="Principal.cs">

@@ -69,7 +69,7 @@ namespace ProyectoCompiladores_IDE
                 }
             }
 
-            if (n.getTipoToken() == token.Type.WRITE)
+            if (n.getTipoToken() == token.Type.WRITE || n.getTipoToken() == token.Type.READ)
             {
                 //n.setTipoDato(n.hijos[0].getTipoDato());
                 bandera = true;
