@@ -83,6 +83,7 @@ namespace ProyectoCompiladores_IDE
 
         public List<String> extraerResultados()
         {
+            resultado.Add("Halt");
             return resultado;
         }
 
