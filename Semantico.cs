@@ -13,6 +13,7 @@ namespace ProyectoCompiladores_IDE
         static private List<String> listaIntFloat = new List<string>();
         static private List<String> temporal = new List<string>();
         public static Boolean bandera = false;
+
         private static void TypeError(Nodo n, string msg)
         {
             errores.Add($"Error de tipo en linea {n.getLinea()}: {msg}");
@@ -181,6 +182,13 @@ namespace ProyectoCompiladores_IDE
                 else
                     break;
             }
+        }
+
+        public static void limpiarSemantico()
+        {
+            errores.Clear();
+            tablaSin.Clear();
+            temporal.Clear();
         }
     }
 }

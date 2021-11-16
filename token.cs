@@ -17,7 +17,7 @@ namespace ProyectoCompiladores_IDE
             MAYOR_QUE, MENOR_QUE, MAYOR_IGUAL, MENOR_IGUAL, IGUALDAD, DESIGUALDAD,
             LPAREN, RPAREN, L_LLAVE, R_LLAVE, SEMI, COMA,
             AND, OR, NOT, IF, THEN, ELSE, FI, WHILE, DO, UNTIL, READ, WRITE, 
-            TRUE,FALSE, CONDICION
+            TRUE,FALSE, CONDICION, SENTENCIAS
         }
 
         public enum DataType

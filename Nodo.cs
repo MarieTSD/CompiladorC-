@@ -10,17 +10,20 @@ namespace ProyectoCompiladores_IDE
     {
         public Nodo[] hijos;
         public Nodo hermano;
+        public string label;
 
         public Nodo(): base()
         {
             hijos = new Nodo[3];
             hermano = null;
+            label = null;
         }
 
         public Nodo(token token) : base(token)
         {
             hijos = new Nodo[3];
             hermano = null;
+            label = null;
         }
     }
 }

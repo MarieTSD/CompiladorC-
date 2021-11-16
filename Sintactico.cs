@@ -19,6 +19,7 @@ namespace ProyectoCompiladores_IDE
         {
             listaTokens = lista;
             errores = new List<token> ();
+            tokenResultado = "";
         }
         
         public Nodo arbolSintactico()
@@ -273,9 +274,22 @@ namespace ProyectoCompiladores_IDE
             Nodo  temp = new Nodo(tokenActual);
             comprobar(token.Type.WHILE);
             comprobar(token.Type.LPAREN);
-            temp.hijos[0] = bexpresion();
+
+            Nodo condicion = new Nodo();
+            condicion.setLexema("Condicion");
+            condicion.setLinea(tokenActual.getLinea());
+            condicion.setTipoToken(token.Type.CONDICION);
+            temp.hijos[0] = condicion;
+            condicion.hijos[0] = bexpresion();
+
             comprobar(token.Type.RPAREN);
-            temp.hijos[1] = bloque();
+
+            Nodo sentencias = new Nodo();
+            sentencias.setLexema("Sentencias");
+            sentencias.setLinea(tokenActual.getLinea());
+            sentencias.setTipoToken(token.Type.SENTENCIAS);
+            temp.hijos[1] = sentencias;
+            sentencias.hijos[0] = bloque();
             return temp;
         }
 
@@ -283,10 +297,23 @@ namespace ProyectoCompiladores_IDE
         {
             Nodo temp = new Nodo(tokenActual);
             comprobar(token.Type.DO);
-            temp.hijos[0] = bloque();
+
+            Nodo sentencias = new Nodo();
+            sentencias.setLexema("Sentencias");
+            sentencias.setLinea(tokenActual.getLinea());
+            sentencias.setTipoToken(token.Type.SENTENCIAS);
+            temp.hijos[0] = sentencias;
+            sentencias.hijos[0] = bloque();
+
             comprobar(token.Type.UNTIL);
             comprobar(token.Type.LPAREN);
-            temp.hijos[1] = bexpresion();
+
+            Nodo condicion = new Nodo();
+            condicion.setLexema("Condicion");
+            condicion.setLinea(tokenActual.getLinea());
+            condicion.setTipoToken(token.Type.CONDICION);
+            temp.hijos[1] = condicion;
+            condicion.hijos[0] = bexpresion();
             comprobar(token.Type.RPAREN);
             comprobar(token.Type.SEMI);
             return temp;

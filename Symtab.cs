@@ -91,5 +91,12 @@ namespace ProyectoCompiladores_IDE
 
             return aux;
         }
+
+        public static void LimpiarTabla()
+        {
+            tabla.Clear();
+            tablaS.Clear();
+            errores.Clear();
+        }
     }
 }

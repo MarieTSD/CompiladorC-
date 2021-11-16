@@ -311,6 +311,7 @@ namespace ProyectoCompiladores_IDE
             //string cadenas ="+-{;}";
             //Console.WriteLine("Coincidencias primer archivo: \t");
             lexico analizador = new lexico();
+            Symtab.LimpiarTabla();
             int lineaP = 1;
             foreach (string linea in lineas)
             {
@@ -330,6 +331,7 @@ namespace ProyectoCompiladores_IDE
                 CodigoIntermedio CodigoInter = new CodigoIntermedio();
                 codigointermedio.Text = "";
                 Nodo arbol = new Nodo();
+                Semantico.limpiarSemantico();
                 arbol = analizadorSintactico.arbolSintactico();
                 //ErroresTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
                 Semantico.InsertarId(arbol);
@@ -349,7 +351,8 @@ namespace ProyectoCompiladores_IDE
                 //Semantico.TablaSemantico();
                 tablaSin = Semantico.tablaSi();
                 MostrarTabla();
-                CodigoInter.CrearCodigoInter(null, auxSemantico, arbol);
+                //CodigoInter.CrearCodigoInter(null, auxSemantico, arbol);
+                CodigoInter.CodeGen(arbol,null);
                 resultadoCodigo = CodigoInter.extraerResultados();
                 for (int i = 0; i < resultadoCodigo.Count; i++)
                 {
