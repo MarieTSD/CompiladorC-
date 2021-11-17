@@ -135,6 +135,32 @@ namespace ProyectoCompiladores_IDE
                 }
             }
 
+            if(n.getTipoToken() == token.Type.AND || n.getTipoToken() == token.Type.OR)
+            {
+                if(n.hijos[0].getTipoDato() != token.DataType.BOOLEAN || n.hijos[1].getTipoDato() != token.DataType.BOOLEAN)
+                {
+                    TypeError(n, "Operacion no valida");
+                    n.setTipoDato(token.DataType.ERROR);
+                } 
+                else
+                {
+                    n.setTipoDato(token.DataType.BOOLEAN);
+                }
+            }
+            
+            if(n.getTipoToken() == token.Type.NOT)
+            {
+                if(n.hijos[0].getTipoDato() != token.DataType.BOOLEAN)
+                {
+                    TypeError(n, "Operacion no valida");
+                    n.setTipoDato(token.DataType.ERROR);
+                } 
+                else
+                {
+                    n.setTipoDato(token.DataType.BOOLEAN);
+                }
+            }
+
             if (n.hermano != null) TypeCheck(n.hermano);
         }
 

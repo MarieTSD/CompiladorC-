@@ -19,7 +19,7 @@ namespace ProyectoCompiladores_IDE
         private static List<string> tablaSin = new List<string>();
         private List<String> resultadoCodigo = new List<String>();
         Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|then|else|fi|do|until|while|read|write|#.*");
-        Regex otro_rx = new Regex(@"<.*>|\"".*\""");
+        Regex otro_rx = new Regex(@"\"".*\""|//.*|/\*.*\*/");
         public Principal()
         {
             InitializeComponent();
@@ -279,7 +279,7 @@ namespace ProyectoCompiladores_IDE
             foreach (Match temp in matchesOtro)
             {
                 cuadro.Select(temp.Index, temp.Length);
-                cuadro.SelectionColor = Color.Red;
+                cuadro.SelectionColor = Color.Gray;
             }
 
             cuadro.SelectionStart = posActual;

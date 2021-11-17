@@ -239,10 +239,17 @@ namespace ProyectoCompiladores_IDE
                     n.getTipoToken() == token.Type.MULTIPLICACION || n.getTipoToken() == token.Type.DIVISION ||
                     n.getTipoToken() == token.Type.MAYOR_IGUAL || n.getTipoToken() == token.Type.MAYOR_QUE ||
                     n.getTipoToken() == token.Type.MENOR_IGUAL || n.getTipoToken() == token.Type.MENOR_QUE ||
-                    n.getTipoToken() == token.Type.IGUALDAD || n.getTipoToken() == token.Type.DESIGUALDAD)
+                    n.getTipoToken() == token.Type.IGUALDAD || n.getTipoToken() == token.Type.DESIGUALDAD ||
+                    n.getTipoToken() == token.Type.AND || n.getTipoToken() == token.Type.OR )
                 {
                     n.label = TempVarGen();
                     resultado.Add($"{n.label} = {n.hijos[0].label} {n.getLexema()} {n.hijos[1].label}");
+                }
+
+                if (n.getTipoToken() == token.Type.NOT)
+                {
+                    n.label = TempVarGen();
+                    resultado.Add($"{n.label} = {n.getLexema()} {n.hijos[0].label}");
                 }
 
                 if (n.getTipoToken() == token.Type.ASIGNACION)
