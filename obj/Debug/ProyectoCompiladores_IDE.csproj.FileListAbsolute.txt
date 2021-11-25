@@ -38,3 +38,13 @@ C:\Users\joser\source\repos\FinalFinal\obj\Debug\ProyectoCompiladores_IDE.csproj
 C:\Users\joser\source\repos\FinalFinal\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
 C:\Users\joser\source\repos\FinalFinal\obj\Debug\ProyectoCompiladores_IDE.exe
 C:\Users\joser\source\repos\FinalFinal\obj\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\bin\Debug\ProyectoCompiladores_IDE.exe.config
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\bin\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\bin\Debug\ProyectoCompiladores_IDE.pdb
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.csproj.AssemblyReference.cache
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.Principal.resources
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.Properties.Resources.resources
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.csproj.GenerateResource.cache
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.csproj.CoreCompileInputs.cache
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.exe
+C:\Users\joser\Documents\Docs\Compiladores\Proyecto Final\Pruebas\PruebaSemantico-15-10\CompiladorCSharp\obj\Debug\ProyectoCompiladores_IDE.pdb

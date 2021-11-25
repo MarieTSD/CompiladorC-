@@ -36,9 +36,15 @@ namespace ProyectoCompiladores_IDE
             this.tabLexico = new System.Windows.Forms.TabPage();
             this.LexicoTextBox = new System.Windows.Forms.RichTextBox();
             this.tabSintactico = new System.Windows.Forms.TabPage();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.arbolSintactico = new System.Windows.Forms.TreeView();
             this.tabSemantico = new System.Windows.Forms.TabPage();
+            this.arbolSemantico = new System.Windows.Forms.TreeView();
             this.tabCod_Intermd = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Variable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Linea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resultados = new System.Windows.Forms.TabControl();
             this.tabErrores = new System.Windows.Forms.TabPage();
             this.ErroresTextBox = new System.Windows.Forms.RichTextBox();
@@ -67,9 +73,14 @@ namespace ProyectoCompiladores_IDE
             this.guardar = new System.Windows.Forms.SaveFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.codigointermedio = new System.Windows.Forms.RichTextBox();
             this.Pestañas.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintactico.SuspendLayout();
+            this.tabSemantico.SuspendLayout();
+            this.tabCod_Intermd.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.Resultados.SuspendLayout();
             this.tabErrores.SuspendLayout();
             this.tabResultados.SuspendLayout();
@@ -107,6 +118,7 @@ namespace ProyectoCompiladores_IDE
             this.Pestañas.Controls.Add(this.tabSintactico);
             this.Pestañas.Controls.Add(this.tabSemantico);
             this.Pestañas.Controls.Add(this.tabCod_Intermd);
+            this.Pestañas.Controls.Add(this.tabPage1);
             this.Pestañas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pestañas.ItemSize = new System.Drawing.Size(61, 20);
             this.Pestañas.Location = new System.Drawing.Point(9, 31);
@@ -123,7 +135,7 @@ namespace ProyectoCompiladores_IDE
             this.tabLexico.Margin = new System.Windows.Forms.Padding(2);
             this.tabLexico.Name = "tabLexico";
             this.tabLexico.Padding = new System.Windows.Forms.Padding(2);
-            this.tabLexico.Size = new System.Drawing.Size(292, 334);
+            this.tabLexico.Size = new System.Drawing.Size(299, 334);
             this.tabLexico.TabIndex = 0;
             this.tabLexico.Text = "Lexico";
             this.tabLexico.UseVisualStyleBackColor = true;
@@ -142,7 +154,7 @@ namespace ProyectoCompiladores_IDE
             // 
             // tabSintactico
             // 
-            this.tabSintactico.Controls.Add(this.treeView1);
+            this.tabSintactico.Controls.Add(this.arbolSintactico);
             this.tabSintactico.Location = new System.Drawing.Point(4, 24);
             this.tabSintactico.Margin = new System.Windows.Forms.Padding(2);
             this.tabSintactico.Name = "tabSintactico";
@@ -153,34 +165,82 @@ namespace ProyectoCompiladores_IDE
             this.tabSintactico.UseVisualStyleBackColor = true;
             this.tabSintactico.Click += new System.EventHandler(this.tabSintactico_Click);
             // 
-            // treeView1
+            // arbolSintactico
             // 
-            this.treeView1.Location = new System.Drawing.Point(6, 5);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(380, 407);
-            this.treeView1.TabIndex = 0;
+            this.arbolSintactico.Location = new System.Drawing.Point(1, 0);
+            this.arbolSintactico.Name = "arbolSintactico";
+            this.arbolSintactico.Size = new System.Drawing.Size(301, 340);
+            this.arbolSintactico.TabIndex = 0;
             // 
             // tabSemantico
             // 
+            this.tabSemantico.Controls.Add(this.arbolSemantico);
             this.tabSemantico.Location = new System.Drawing.Point(4, 24);
             this.tabSemantico.Margin = new System.Windows.Forms.Padding(2);
             this.tabSemantico.Name = "tabSemantico";
             this.tabSemantico.Padding = new System.Windows.Forms.Padding(2);
-            this.tabSemantico.Size = new System.Drawing.Size(292, 334);
+            this.tabSemantico.Size = new System.Drawing.Size(299, 334);
             this.tabSemantico.TabIndex = 2;
             this.tabSemantico.Text = "Semantico";
             this.tabSemantico.UseVisualStyleBackColor = true;
             // 
+            // arbolSemantico
+            // 
+            this.arbolSemantico.Location = new System.Drawing.Point(0, 0);
+            this.arbolSemantico.Margin = new System.Windows.Forms.Padding(2);
+            this.arbolSemantico.Name = "arbolSemantico";
+            this.arbolSemantico.Size = new System.Drawing.Size(300, 338);
+            this.arbolSemantico.TabIndex = 0;
+            // 
             // tabCod_Intermd
             // 
+            this.tabCod_Intermd.Controls.Add(this.codigointermedio);
             this.tabCod_Intermd.Location = new System.Drawing.Point(4, 24);
             this.tabCod_Intermd.Margin = new System.Windows.Forms.Padding(2);
             this.tabCod_Intermd.Name = "tabCod_Intermd";
             this.tabCod_Intermd.Padding = new System.Windows.Forms.Padding(2);
-            this.tabCod_Intermd.Size = new System.Drawing.Size(292, 334);
+            this.tabCod_Intermd.Size = new System.Drawing.Size(299, 334);
             this.tabCod_Intermd.TabIndex = 3;
             this.tabCod_Intermd.Text = "Codigo Intermedio";
             this.tabCod_Intermd.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(299, 334);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Tabla simbolos";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Variable,
+            this.Tipo,
+            this.Linea});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(290, 190);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Variable
+            // 
+            this.Variable.HeaderText = "Variable";
+            this.Variable.Name = "Variable";
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.Name = "Tipo";
+            // 
+            // Linea
+            // 
+            this.Linea.HeaderText = "Linea";
+            this.Linea.Name = "Linea";
             // 
             // Resultados
             // 
@@ -439,6 +499,18 @@ namespace ProyectoCompiladores_IDE
             this.panel2.Size = new System.Drawing.Size(780, 134);
             this.panel2.TabIndex = 8;
             // 
+            // codigointermedio
+            // 
+            this.codigointermedio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codigointermedio.Location = new System.Drawing.Point(2, 0);
+            this.codigointermedio.Margin = new System.Windows.Forms.Padding(2);
+            this.codigointermedio.Name = "codigointermedio";
+            this.codigointermedio.ReadOnly = true;
+            this.codigointermedio.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.codigointermedio.Size = new System.Drawing.Size(295, 344);
+            this.codigointermedio.TabIndex = 1;
+            this.codigointermedio.Text = "";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -459,6 +531,10 @@ namespace ProyectoCompiladores_IDE
             this.Pestañas.ResumeLayout(false);
             this.tabLexico.ResumeLayout(false);
             this.tabSintactico.ResumeLayout(false);
+            this.tabSemantico.ResumeLayout(false);
+            this.tabCod_Intermd.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.Resultados.ResumeLayout(false);
             this.tabErrores.ResumeLayout(false);
             this.tabResultados.ResumeLayout(false);
@@ -477,7 +553,6 @@ namespace ProyectoCompiladores_IDE
         private System.Windows.Forms.TabControl Pestañas;
         private System.Windows.Forms.TabPage tabLexico;
         private System.Windows.Forms.TabPage tabSintactico;
-        private System.Windows.Forms.TabPage tabSemantico;
         private System.Windows.Forms.TabPage tabCod_Intermd;
         private System.Windows.Forms.TabControl Resultados;
         private System.Windows.Forms.TabPage tabErrores;
@@ -508,7 +583,15 @@ namespace ProyectoCompiladores_IDE
         private System.Windows.Forms.ToolStripMenuItem seleccionarTodoToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView arbolSintactico;
+        private System.Windows.Forms.TabPage tabSemantico;
+        private System.Windows.Forms.TreeView arbolSemantico;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Variable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Linea;
+        private System.Windows.Forms.RichTextBox codigointermedio;
     }
 }
 

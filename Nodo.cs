@@ -6,26 +6,24 @@ using System.Threading.Tasks;
 
 namespace ProyectoCompiladores_IDE
 {
-    class Nodo
+    class Nodo: token
     {
         public Nodo[] hijos;
         public Nodo hermano;
-        public string valor;
-        public int linea;
-        public Nodo()
+        public string label;
+
+        public Nodo(): base()
         {
             hijos = new Nodo[3];
             hermano = null;
-            valor = "";
-            linea = 0;
+            label = null;
         }
 
-        public Nodo(token token)
+        public Nodo(token token) : base(token)
         {
             hijos = new Nodo[3];
             hermano = null;
-            valor = token.getLexema();
-            linea = token.getLinea();
+            label = null;
         }
     }
 }

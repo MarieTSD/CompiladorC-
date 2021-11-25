@@ -16,10 +16,10 @@ namespace ProyectoCompiladores_IDE
     public partial class Principal : Form
     {
         string rutaArchivo;
-
+        private static List<string> tablaSin = new List<string>();
+        private List<String> resultadoCodigo = new List<String>();
         Regex reservadas = new Regex(@"program|int|float|bool|and|or|not|if|then|else|fi|do|until|while|read|write|#.*");
-        Regex otro_rx = new Regex(@"<.*>|\"".*\""");
-        String tokenResultado;
+        Regex otro_rx = new Regex(@"\"".*\""|//.*|/\*.*\*/");
         public Principal()
         {
             InitializeComponent();
@@ -279,7 +279,7 @@ namespace ProyectoCompiladores_IDE
             foreach (Match temp in matchesOtro)
             {
                 cuadro.Select(temp.Index, temp.Length);
-                cuadro.SelectionColor = Color.Red;
+                cuadro.SelectionColor = Color.Gray;
             }
 
             cuadro.SelectionStart = posActual;
@@ -311,6 +311,7 @@ namespace ProyectoCompiladores_IDE
             //string cadenas ="+-{;}";
             //Console.WriteLine("Coincidencias primer archivo: \t");
             lexico analizador = new lexico();
+            Symtab.LimpiarTabla();
             int lineaP = 1;
             foreach (string linea in lineas)
             {
@@ -327,16 +328,40 @@ namespace ProyectoCompiladores_IDE
             if(analizador.tokensResultadosE() == null)
             {
                 Sintactico analizadorSintactico = new Sintactico(analizador.obtenerTokens());
+                CodigoIntermedio CodigoInter = new CodigoIntermedio();
+                codigointermedio.Text = "";
                 Nodo arbol = new Nodo();
+                Semantico.limpiarSemantico();
                 arbol = analizadorSintactico.arbolSintactico();
+                //ErroresTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
+                Semantico.InsertarId(arbol);
+                Semantico.TypeCheck(arbol);
+                //ResulTextBox.Text = analizadorSintactico.getNodosArbol(arbol);
+
 
                 //Arbol es el que utilizamos para enviarlo al TreeView
-                treeView1.Nodes.Clear();
-                TreeNode aux = treeView1.Nodes.Add(arbol.valor);
-                CrearTreeview(null, aux, arbol);
-                ErroresTextBox.Text = analizadorSintactico.erroresSintacticos();
+                arbolSintactico.Nodes.Clear();
+                arbolSemantico.Nodes.Clear();
+                TreeNode auxSintactico = arbolSintactico.Nodes.Add(arbol.getLexema());
+                TreeNode auxSemantico = arbolSemantico.Nodes.Add(arbol.getLexema());
+                CrearTreeview(null, auxSintactico, arbol);
+                CrearTreeviewAtrib(null, auxSemantico, arbol); 
+                ErroresTextBox.Text += analizadorSintactico.erroresSintacticos() + Semantico.GetErroresSemantico();
+                ResulTextBox.Text = Symtab.GetSymtab();
+                //Semantico.TablaSemantico();
+                tablaSin = Semantico.tablaSi();
+                MostrarTabla();
+                //CodigoInter.CrearCodigoInter(null, auxSemantico, arbol);
+                CodigoInter.CodeGen(arbol,null);
+                resultadoCodigo = CodigoInter.extraerResultados();
+                for (int i = 0; i < resultadoCodigo.Count; i++)
+                {
+                    String actual = resultadoCodigo.ElementAt(i);
+                    codigointermedio.Text += actual + "\n";
+                }
+
             }
-            
+
 
             /*
             //Programa para ejecutar el comando externo
@@ -357,7 +382,7 @@ namespace ProyectoCompiladores_IDE
             {
                 if (nodo.hijos[i] != null)
                 {
-                    TreeNode aux = treeNode.Nodes.Add(nodo.hijos[i].valor);
+                    TreeNode aux = treeNode.Nodes.Add(nodo.hijos[i].getLexema());
                     CrearTreeview(treeNode, aux, nodo.hijos[i]);
                 }
                 else
@@ -366,12 +391,34 @@ namespace ProyectoCompiladores_IDE
 
             if(nodo.hermano != null)
             {
-                TreeNode aux = padre.Nodes.Add(nodo.hermano.valor);
+                TreeNode aux = padre.Nodes.Add(nodo.hermano.getLexema());
                 CrearTreeview(padre, aux, nodo.hermano);
             }
         }
 
-        
+        void CrearTreeviewAtrib(TreeNode padre, TreeNode treeNode, Nodo nodo)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (nodo.hijos[i] != null)
+                {
+                    string nameHijo = $"{nodo.hijos[i].getLexema()} : {nodo.hijos[i].getTipoDato()}";
+                    TreeNode aux = treeNode.Nodes.Add(nameHijo);
+                    CrearTreeviewAtrib(treeNode, aux, nodo.hijos[i]);
+                }
+                else
+                    break;
+            }
+
+            if (nodo.hermano != null)
+            {
+                string nameHermano = $"{nodo.hermano.getLexema()} : {nodo.hermano.getTipoDato()}";
+                TreeNode aux = padre.Nodes.Add(nameHermano);
+                CrearTreeviewAtrib(padre, aux, nodo.hermano);
+            }
+        }
+
+
         //--FIN----------------------Propiedades de variables reservadas
 
         private static string lanzaProceso(string Proceso, string Parametros)
@@ -392,7 +439,19 @@ namespace ProyectoCompiladores_IDE
                 return proc.StandardOutput.ReadToEnd(); //Devuelve el resultado 
                 
         }
-
+        void MostrarTabla()
+        {
+            for (int i = 0; i < tablaSin.Count; i++)
+            {
+                String[] lista;
+                lista = tablaSin.ElementAt(i).Split('/');
+                int n = dataGridView1.Rows.Add();
+                dataGridView1.Rows[n].Cells[0].Value = lista[0];
+                dataGridView1.Rows[n].Cells[1].Value = lista[2];
+                dataGridView1.Rows[n].Cells[2].Value = lista[1];
+                //Console.WriteLine(tablaSin.ElementAt(i) + "\n");
+            }
+        }
         private void tabSintactico_Click(object sender, EventArgs e)
         {
 

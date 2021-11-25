@@ -8,12 +8,19 @@ namespace ProyectoCompiladores_IDE
 {
     class lexico
     {
+        private enum Estado 
+        { 
+            START, INID, INNUM, INPOINT, INFLOAT, INFLOAT2,
+            INDIAG, INMAYOR, INMENOR, INASSIGN, INDIFERENTE,   
+            INCOMENTARIO, INCOMENTARIO2, INCOMENTARIO3, DONE
+        }
         static private List<token> listaTokens;
         static private List<token> listaTokensErrores;
         private String tokenResultado;
         private String tokenResultadoE;
         private Boolean bandera;
         private String auxiliar;
+
         public lexico()
         {
             listaTokens = new List<token>();
@@ -21,20 +28,24 @@ namespace ProyectoCompiladores_IDE
             bandera = false;
             auxiliar = "";
         }
-        public void tokens(String idToken, String lexema, int linea, int indice)
+
+        public void tokens(token.Type tipoToken, token.DataType tipoDato, String lexema, int linea, int indice)
         {
-            token nuevoToken = new token(idToken, lexema, indice, linea);
+            token nuevoToken = new token(tipoToken, tipoDato, lexema, indice, linea);
             listaTokens.Add(nuevoToken);
         }
-        public void tokensE(String idToken, String lexema, int linea, int indice)
+
+        public void tokensE(token.Type tipoToken, token.DataType tipoDato, String lexema, int linea, int indice)
         {
-            token nuevoToken = new token(idToken, lexema, indice, linea);
+            token nuevoToken = new token(tipoToken, tipoDato, lexema, indice, linea);
             listaTokensErrores.Add(nuevoToken);
         }
+
         public List<token> obtenerTokens()
         {
             return listaTokens;
         }
+
         public List<token> obtenerTokensE()
         {
             return listaTokensErrores;
@@ -53,7 +64,7 @@ namespace ProyectoCompiladores_IDE
             for (int i = 0; i < listaTokens.Count; i++)
             {
                 token actual = listaTokens.ElementAt(i);
-                tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
+                tokenResultado += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getTipoToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
             }
         }
         public void obtenerTokens2E()
@@ -61,17 +72,17 @@ namespace ProyectoCompiladores_IDE
             for (int i = 0; i < listaTokensErrores.Count; i++)
             {
                 token actual = listaTokensErrores.ElementAt(i);
-                tokenResultadoE += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getIdToken() + ",Linea: " + actual.getLinea() + "]" + Environment.NewLine;
+                tokenResultadoE += "[Lexema: " + actual.getLexema() + ",Token: " + actual.getTipoToken() + ",Linea: " + actual.getLinea() + " (Lexico)]" + Environment.NewLine;
             }
         }
         public void Analizado_Lexico(String Cadena, int linea)
         {
-            int estado = 0;
+            Estado estado = Estado.START;
             string lexema = "";
             if (bandera)
             {
                 lexema = auxiliar;
-                estado = 25;
+                estado = Estado.INCOMENTARIO2;
             }
 
             Char c;
@@ -82,302 +93,310 @@ namespace ProyectoCompiladores_IDE
                 c = Cadena[i];
                 switch (estado)
                 {
-                    case 0:
+                    case Estado.START:
                         if (c == '+')
                         {
                             lexema += c;
-                            tokens("Suma", lexema, i + 1, indice);
+                            tokens(token.Type.SUMA, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '-')
                         {
                             lexema += c;
-                            tokens("Resta", lexema, i + 1, indice);
+                            tokens(token.Type.RESTA, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '*')
                         {
                             lexema += c;
-                            tokens("Multiplicacion", lexema, i + 1, indice);
+                            tokens(token.Type.MULTIPLICACION, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '/')
                         {
                             lexema += c;
-                            estado = 4;
+                            estado = Estado.INDIAG;
                         }
                         else if (c == '^')
                         {
                             lexema += c;
-                            tokens("Potencia", lexema, i + 1, indice);
+                            tokens(token.Type.POTENCIA, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '>')
                         {
                             lexema += c;
-                            tokens("Mayor que", lexema, i + 1, indice);
-                            estado = 6;
+                            tokens(token.Type.MAYOR_QUE, token.DataType.NONE, lexema, i + 1, indice);
+                            estado = Estado.INMAYOR;
                         }
                         else if (c == '<')
                         {
                             lexema += c;
-                            estado = 8;
+                            estado = Estado.INMENOR;
                         }
                         else if (c == '=')
                         {
                             lexema += c;
-                            estado = 10;
+                            estado = Estado.INASSIGN;
                         }
                         else if (c == '!')
                         {
                             lexema += c;
-                            estado = 12;
+                            estado = Estado.INDIFERENTE;
                         }
                         else if (c == ';')
                         {
                             lexema += c;
-                            tokens("Punto y coma", lexema, i + 1, indice);
+                            tokens(token.Type.SEMI, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == ',')
                         {
                             lexema += c;
-                            tokens("Coma", lexema, i + 1, indice);
+                            tokens(token.Type.COMA, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '(')
                         {
                             lexema += c;
-                            tokens("Par abre", lexema, i + 1, indice);
+                            tokens(token.Type.LPAREN, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == ')')
                         {
                             lexema += c;
-                            tokens("Par cierra", lexema, i + 1, indice);
+                            tokens(token.Type.RPAREN, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '{')
                         {
                             lexema += c;
-                            tokens("Llave abre", lexema, i + 1, indice);
+                            tokens(token.Type.L_LLAVE, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (c == '}')
                         {
                             lexema += c;
-                            tokens("Llave cierra", lexema, i + 1, indice);
+                            tokens(token.Type.R_LLAVE, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
                         else if (Char.IsLetter(c))
                         {
                             lexema += c;
-                            estado = 20;
+                            estado = Estado.INID;
                         }
                         else if (Char.IsDigit(c))
                         {
                             lexema += c;
-                            estado = 22;
+                            estado = Estado.INNUM;
                         }
-                        else if (c == ' ')
+                        else if (Char.IsSeparator(c))
                         {
                             lexema = "";
                         }else if(c == '.'){
                             lexema += c;
-                            estado = 30;
+                            estado = Estado.INPOINT;
                         }
                         else
                         {
                             lexema += c;
-                            tokensE("Error", lexema, i + 1, indice);
+                            tokens(token.Type.ERROR, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                         }
 
                         break;
-                    case 4:
+                    case Estado.INDIAG:
                         if (c == '/')
                         {
                             lexema += c;
-                            tokens("Comentario", lexema, i + 1, indice);
-                            estado = 28;
+                            tokens(token.Type.COMENTARIO, token.DataType.NONE, lexema, i + 1, indice);
+                            estado = Estado.INCOMENTARIO;
                         }
                         else if (c == '*')
                         {
                             lexema += c;
                             bandera = true;
-                            estado = 25;
+                            estado = Estado.INCOMENTARIO2;
                         }
                         else
                         {
-                            tokens("Division", lexema, i + 1, indice);
+                            tokens(token.Type.DIVISION, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         break;
-                    case 6:
+                    case Estado.INMAYOR:
                         if (c == '=')
                         {
                             lexema += c;
                             listaTokens.RemoveAt(listaTokens.Count - 1);
-                            tokens("Mayor o I", lexema, i + 1, indice);
+                            tokens(token.Type.MAYOR_IGUAL, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         else
                         {
-                            //tokens("Mayor que", lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                             i--;
                         }
                         break;
-                    case 8:
+                    case Estado.INMENOR:
                         if (c == '=')
                         {
                             lexema += c;
-                            tokens("Menor o I", lexema, i + 1, indice);
+                            tokens(token.Type.MENOR_IGUAL, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         else
                         {
-                            tokens("Menor que", lexema, i + 1, indice);
+                            tokens(token.Type.MENOR_QUE, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                             i--;
                         }
                         break;
-                    case 10:
+                    case Estado.INASSIGN:
                         if (c != '=')
                         {
-                            tokens("Asignacion", lexema, i + 1, indice);
+                            tokens(token.Type.ASIGNACION, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                             i--;
                         }
                         else
                         {
                             lexema += c;
-                            tokens("Igualdad", lexema, i + 1, indice);
+                            tokens(token.Type.IGUALDAD, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         break;
-                    case 20:
+                    case Estado.INDIFERENTE:
+                        if ( c == '=')
+                        {
+                            lexema += c;
+                            tokens(token.Type.DESIGUALDAD, token.DataType.NONE, lexema, i + 1, indice);
+                            lexema = "";
+                            estado = Estado.START;
+                        }
+                        else
+                        {
+                            lexema += c;
+                            tokens(token.Type.ERROR, token.DataType.NONE, lexema, i + 1, indice);
+                            lexema = "";
+                            estado = Estado.START;
+                        }
+                        break;
+                    case Estado.INID:
                         if (Char.IsLetterOrDigit(c))
                         {
                             lexema += c; 
-                            estado = 20;
+                            estado = Estado.INID;
                         }
                         else
                         {
-                            Boolean rese = false;
-                            rese = Reservadas(lexema);
-                            if (rese)
-                            {
-                                tokens("Palabra Reservada", lexema, i + 1, indice);
-                            }
-                            else
-                            {
-                                tokens("ID", lexema, i + 1, indice);
-                            }
+                            token.Type tipoToken = token.BuscarReservada(lexema);
+                            token.DataType tipoDato = token.AsignarTipoDato(lexema);
+                            tokens(tipoToken, tipoDato, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                             i--;
                         }
                         break;
-                    case 22:
+                    case Estado.INNUM:
                         if (Char.IsDigit(c))
                         {
                             lexema += c;
-                            estado = 22;
+                            estado = Estado.INNUM;
                         }
                         else if (c == '.')
                         {
                             lexema += c;
-                            estado = 23;
+                            estado = Estado.INFLOAT;
                         }
                         else
                         {
-                            tokens("NUM", lexema.ToString(), i + 1, indice);
+                            tokens(token.Type.NUM, token.DataType.INTEGER, lexema, i + 1, indice);
                             lexema = "";
                             i--;
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         break;
-                    case 23:
+                    case Estado.INFLOAT:
                         if (Char.IsDigit(c))
                         {
                             lexema += c;
-                            estado = 24;
+                            estado = Estado.INFLOAT2;
                         }
                         else
                         {
                             lexema += c;
-                            tokensE("Error", lexema, i + 1, indice);
+                            tokens(token.Type.ERROR, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         break;
-                    case 24:
+                    case Estado.INFLOAT2:
                         if (Char.IsDigit(c))
                         {
                             lexema += c;
-                            estado = 24;
+                            estado = Estado.INFLOAT2;
                         }
                         else
                         {
-                            tokens("NUM", lexema, i + 1, indice);
+                            tokens(token.Type.NUM, token.DataType.REAL, lexema, i + 1, indice);
                             lexema = "";
                             estado = 0;
                             i--;
                         }
                         break;
-                    case 25:
+                    case Estado.INCOMENTARIO2:
                         if (bandera == true)
                         {
                             lexema += c;
                             auxiliar = lexema;
                             if (c == '*')
                             {
-                                estado = 26;
+                                estado = Estado.INCOMENTARIO3;
                             }
                         }
                         break;
-                    case 26:
+                    case Estado.INCOMENTARIO3:
                         if (c == '/')
                         {
                             lexema += c;
-                            tokens("Comentario /**/", lexema, i + 1, indice);
+                            tokens(token.Type.COMENTARIO, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                             bandera = false;
-                            estado = 0;
+                            estado = Estado.START;
                         }
                         else
                         {
                             lexema += c;
-                            estado = 25;
+                            estado = Estado.INCOMENTARIO2;
                         }
                         break;
-                    case 28:
+                    case Estado.INCOMENTARIO:
                         if (c != '/')
                         {
 
                             lexema += c;
                             listaTokens.RemoveAt(listaTokens.Count - 1);
-                            tokens("Comentario", lexema, i + 1, indice);
-                            estado = 28;
+                            tokens(token.Type.COMENTARIO, token.DataType.NONE, lexema, i + 1, indice);
+                            estado = Estado.INCOMENTARIO;
                         }
                         break;
-                    case 30:
+                    case Estado.INPOINT:
                         if (Char.IsDigit(c))
                         {
                             lexema += c;
-                            estado = 30;
+                            estado = Estado.INPOINT;
                         }
                         else
                         {
-                            tokensE("Error", lexema, i + 1, indice);
+                            tokens(token.Type.ERROR, token.DataType.NONE, lexema, i + 1, indice);
                             lexema = "";
                             i--;
                             estado = 0;
@@ -386,23 +405,13 @@ namespace ProyectoCompiladores_IDE
                 }
 
             }
-        }
-        public Boolean Reservadas(String palabra)
-        {
-            Boolean bandera = false;
-            var PReservadas = new List<string> { "program", "if", "else", "fi", "do", "until", "while", "read", "write", "float", "int", "bool", "and", "or", "not" };
-            for (int i = 0; i < PReservadas.Count; ++i)
+
+            if(lexema.Length != 0 && estado != Estado.INCOMENTARIO)
             {
-                if (palabra.ToString() == PReservadas[i].ToString())
-                {
-                    return true;
-                }
-                else
-                {
-                    bandera = false;
-                }
-            }
-            return bandera;
+                token.Type tempToken = token.BuscarReservada(lexema);
+                token.DataType tempDato = token.AsignarTipoDato(lexema);
+                tokens(tempToken, tempDato, lexema, Cadena.Length, indice);
+            }            
         }
     }
 }
