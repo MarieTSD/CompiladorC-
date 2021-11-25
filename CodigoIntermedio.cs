@@ -220,7 +220,8 @@ namespace ProyectoCompiladores_IDE
                 if (n.hijos[1] != null) CodeGen(n.hijos[1], n);
                 if (n.hijos[2] != null) CodeGen(n.hijos[2], n);
 
-                if (n.getTipoToken() == token.Type.ID || n.getTipoToken() == token.Type.NUM)
+                if (n.getTipoToken() == token.Type.ID || n.getTipoToken() == token.Type.NUM || 
+                    n.getTipoToken() == token.Type.TRUE || n.getTipoToken() == token.Type.FALSE )
                 {
                     n.label = n.getLexema();
                 }
